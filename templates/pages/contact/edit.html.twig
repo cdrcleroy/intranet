@@ -1,0 +1,91 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Synaps System | Modifier le profil{% endblock %}
+
+{% if profil == 'commercial' %}
+    {% set profilPath = path('commercial.profil', {id: user.id}) %}
+{% elseif profil == 'contact' %}
+    {% set profilPath = path('contact.profil', {id: user.id}) %}
+{% endif %}
+
+{% block sidebar %}
+    {% if profil == 'contact' %}
+        {% include "partials/_sidebar_contact.html.twig" %}
+    {% else %}
+        {% include "partials/_sidebar.html.twig" %}
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <div class="card mb-4" style="width: 800px;">
+        <div class="card-header">
+            <i class="fas fa-user me-1"></i>
+            Modification du profil
+        </div>
+        <div class="card-body">
+            {{ form_start(form) }}
+            
+                <div class="row">
+                    <div class="col-2">
+                        {{ form_label(form.firstName) }}
+                    </div>
+                    <div class="col">
+                        {{ form_widget(form.firstName) }}
+                        {{ form_errors(form.firstName) }}
+                    </div>
+                    <div class="col-2">
+                        {{ form_label(form.lastName) }}
+                    </div>
+                    <div class="col">
+                        {{ form_widget(form.lastName) }}
+                        {{ form_errors(form.lastName) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        {{ form_label(form.email) }}
+                    </div>
+                    <div class="col">
+                        {{ form_widget(form.email) }}
+                        {{ form_errors(form.email) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        {{ form_label(form.tel) }}
+                    </div>
+                    <div class="col">
+                        {{ form_widget(form.tel) }}
+                        {{ form_errors(form.tel) }}
+                    </div>
+                    <div class="col-2">
+                        {{ form_label(form.mobile) }}
+                    </div>
+                    <div class="col">
+                        {{ form_widget(form.mobile) }}
+                        {{ form_errors(form.mobile) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        {{ form_label(form.fonction) }}
+                    </div>
+                    <div class="col">
+                        {{ form_widget(form.fonction) }}
+                        {{ form_errors(form.fonction) }}
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-3">
+                        {{ form_widget(form.submit) }}
+                    </div>
+                    {% if user.id != contact.id %}
+                        <div class="col-3">
+                            <a href="{{ path('contact.delete', { id: contact.id}) }}"><button type="button" class="btn btn-secondary">Supprimer</button></a>
+                        </div>
+                    {% endif %}
+                </div>
+            {{ form_end(form)}}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="{{ asset("images/favicon.png") }}" type="image/png" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset("styles/login.css") }}">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <nav class="nav">
+            <div class="nav-menu" id="navMenu" style="visibility: hidden;">
+                <ul>
+                    <li><a href="#" class="link active">Home</a></li>
+                    <li><a href="#" class="link">Blog</a></li>
+                    <li><a href="#" class="link">Services</a></li>
+                </ul>
+            </div>
+            <div class="nav-logo">
+                <p>SYNAPS SYSTEM</p>
+            </div>
+            <div class="nav-button">
+                <button class="btn white-btn" id="loginBtn" style="visibility: hidden;">
+                    Connexion
+                </button>
+                {% block nav %}
+                    <button class="btn white-btn" id="loginBtn" onclick="login()">
+                        <a href="{{ path('security.registration') }}">
+                            Inscription
+                        </a>
+                </button>
+                {% endblock %}
+            </div>
+        </nav>
+        <div class="form-box">
+
+        {% block body %}{% endblock %}
+
+        </div>
+    </div>
+    {#<script src="{{ asset("js/login.js") }}"></script>#}
+</body>
+
+</html>

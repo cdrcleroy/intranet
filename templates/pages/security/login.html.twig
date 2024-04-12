@@ -1,0 +1,44 @@
+{% extends "loginbase.html.twig" %}
+
+{% block title %}Synaps System | Connexion{% endblock %}
+
+{% block body %}
+    <div class="login-container" id="login">
+        <div class="top">
+            <span>Pas de compte ?
+                <a href="{{ path('security.registration') }}" onclick="register()">Inscription</a></span>
+            <header>Connexion</header>
+        </div>
+
+        {% if error %}
+            <div class="alert alert-danger">
+                {{ error.messageKey|trans(error.messageData, 'security') }}
+            </div>
+        {% endif %}
+
+        <form action="{{ path('security.login') }}" method="post">
+            <div class="input-box">
+                <input class="input-field" placeholder="Adresse email" id="username" name="_username" type="email"
+                    required>
+                <i class="bx bx-user"></i>
+            </div>
+            <div class="input-box">
+                <input type="password" class="input-field" placeholder="Mot de passe" id="password"
+                    name="_password" required>
+                <i class="bx bx-lock-alt"></i>
+            </div>
+            <div class="input-box">
+                <input type="submit" class="submit" value="Se Connecter" />
+            </div>
+            <div class="two-col">
+                <div class="one">
+                    <input id="remember_me" type="checkbox" name="remember_me">
+                    <label for="login-check"> Se souvenir de moi</label>
+                </div>
+                <div class="two">
+                    <label><a href="recover" onclick="forget()">Mot de passe oublié ?</a></label>
+                </div>
+            </div>
+        </form>
+    </div>        
+{% endblock %}

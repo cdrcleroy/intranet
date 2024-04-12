@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Synaps System | Accueil{% endblock %}
+
+{% set profilPath = path('contact.profil', {id: user.id}) %}
+
+{% block sidebar %}
+    {% include "partials/_sidebar_contact.html.twig" %}
+{% endblock %}
+
+{% block header %}
+    {% include "partials/_header.html.twig" with {'profilPath': profilPath} %}
+{% endblock %}
+
+{% block body %}
+    <h1>contact.home</h1>
+{% endblock %}

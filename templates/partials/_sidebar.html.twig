@@ -1,0 +1,116 @@
+<div id="sidebar">
+    <button id="sidebar__collapse">
+        <svg>
+            <use xlink:href="#icon-collapse"></use>
+        </svg>
+        <span>Collapse menu</span>
+    </button>
+
+    <nav id="sidebar__nav">
+        <ul>
+            <li class="menu-heading"><span>Pilotage</span></li>
+            <li>
+                <a href="#" class="sub-btn">
+                    <svg>
+                        <use xlink:href="#wallet"></use>
+                    </svg>
+                    <span>Mon portefeuille</span>
+                    <i class="fa-solid fa-chevron-down custom-icon" style="position: absolute;
+                    right: 1.5rem;"></i>
+                </a>
+                <div class="sub-menu" style="display: none;">
+                    <a href="{{ path('entreprise.entreprises') }}" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Les entreprises</a>
+                    <a href="{{ path('site.sites') }}" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Les sites</a>
+                    <a href="{{ path('contact.contacts') }}" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Les contacts</a>
+                </div>
+            </li>
+            <li>
+                <a href="#" class="sub-btn">
+                    <svg>
+                        <use xlink:href="#suitcase"></use>
+                    </svg>
+                    <span>Mes propositions</span>
+                    <i class="fa-solid fa-chevron-down custom-icon" style="position: absolute;
+                    right: 1.5rem;"></i>
+                </a>
+                <div class="sub-menu" style="display: none;">
+                    <a href="/entreprise" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Les propositions</a>
+                    <a href="/contact" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Les offres</a>
+                </div>
+            </li>
+            <li class="menu-heading"><span>Commandes / Factures</span></li>
+            <li>
+                <a href="#" class="sub-btn">
+                    <svg>
+                        <use xlink:href="#check-circle"></use>
+                    </svg>
+                    <span>Commandes</span>
+                    <i class="fa-solid fa-chevron-down custom-icon" style="position: absolute;
+                    right: 1.5rem;"></i>
+                </a>
+                <div class="sub-menu" style="display: none;">
+                    <a href="" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Eligibilité</a>
+                    <a href="" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Suivi des commandes</a>
+                </div>
+            </li>
+            <li>
+                <a href="#" class="sub-btn">
+                    <svg>
+                        <use xlink:href="#file-alt"></use>
+                    </svg>
+                    <span>Documents contractuels</span>
+                    <i class="fa-solid fa-chevron-down custom-icon" style="position: absolute;
+                    right: 1.5rem;"></i>
+                </a>
+                <div class="sub-menu" style="display: none;">
+                    <a href="" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Contrats</a>
+                    <a href="" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Conditions de vente</a>
+                </div>
+            </li>
+            <li>
+                <a href="#" class="sub-btn">
+                    <svg>
+                        <use xlink:href="#book-open"></use>
+                    </svg>
+                    <span>Offres Synaps</span>
+                    <i class="fa-solid fa-chevron-down custom-icon" style="position: absolute;
+                    right: 1.5rem;"></i>
+                </a>
+                <div class="sub-menu" style="display: none;">
+                    <a href="" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Catalogue</a>
+                    <a href="" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Guide clients</a>
+                </div>
+            </li>
+            <li class="menu-heading"><span>Support</span></li>
+            <li>
+                <a href="#" class="sub-btn">
+                    <svg>
+                        <use xlink:href="#shield-question"></use>
+                    </svg>
+                    <span>Support technique</span>
+                    <i class="fa-solid fa-chevron-down custom-icon" style="position: absolute;
+                    right: 1.5rem;"></i>
+                </a>
+                <div class="sub-menu" style="display: none;">
+                    <a href="" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Suivi des tickets</a>
+                    <a href="" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Tickets en attente</a>
+                </div>
+            </li>
+            <li>
+                <a href="#" class="sub-btn">
+                    <svg>
+                        <use xlink:href="#setting"></use>
+                    </svg>
+                    <span>Configurations</span>
+                    <i class="fa-solid fa-chevron-down custom-icon" style="position: absolute;
+                    right: 1.5rem;"></i>
+                </a>
+                <div class="sub-menu" style="display: none;">
+                    <a href="" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Routeurs</a>
+                    <a href="" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Fichiers de configuration</a>
+                    <a href="" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Informations techniques</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</div>

@@ -1,0 +1,79 @@
+{% extends "loginbase.html.twig" %}
+
+{% block title %}Synaps System | Inscription{% endblock %}
+
+{% block nav %}
+                    <button class="btn white-btn" id="loginBtn" onclick="login()">
+                        <a href="{{ path('security.login') }}">
+                            Connexion
+                        </a>
+                </button>
+                {% endblock %}
+
+{% block body %}
+<div class="register-container" id="register">
+    <div class="top">
+        <span>Déjà un compte ?
+            <a href="{{ path('security.login')}}">Connexion</a></span>
+        <header>Inscription</header>
+    </div>
+    {# <form action="register" method="post"> #}
+    {{ form_start(form) }}
+        <div class="two-forms">
+            <div class="input-box">
+                {# <input type="text" class="input-field" placeholder="Prénom" id="prenom" name="prenom" /> #}
+                {{ form_widget(form.firstName) }}
+                {{ form_errors(form.firstName) }}
+                <i class="bx bx-user"></i>
+            </div>
+            <div class="input-box">
+                {# <input type="text" class="input-field" placeholder="Nom" id="nom" name="nom" /> #}
+                {{ form_widget(form.lastName) }}
+                {{ form_errors(form.lastName) }}
+                <i class="bx bx-user"></i>
+            </div>
+        </div>
+        <div class="two-forms">
+            <div class="input-box">
+                {# <input type="email" class="input-field" placeholder="Adresse email" id="email" name="email" /> #}
+                {{ form_widget(form.email) }}
+                {{ form_errors(form.email) }}
+                <i class="bx bx-envelope"></i>
+            </div>
+            <div class="input-box">
+                {# <input type="text" class="input-field" placeholder="Téléphone" id="tel" name="tel" /> #}
+                {{ form_widget(form.mobile) }}
+                {{ form_errors(form.mobile) }}
+                <i class="bx bx-phone"></i>
+            </div>
+        </div>
+        <div class="two-forms">
+            <div class="input-box">
+                {# <input type="password" class="input-field" placeholder="Mot de passe" id="password"
+                    name="password" /> #}
+                {{ form_row(form.plainPassword.first) }}    
+                <i class="bx bx-lock-alt"></i>
+            </div>
+            <div class="input-box">
+                {# <input type="password" class="input-field" placeholder="Confirmez"
+                    id="passwordConfirm" name="passwordConfirm" /> #}
+                {{ form_row(form.plainPassword.second) }}
+                <i class="bx bx-lock-alt"></i>
+            </div>
+        </div>
+        <div class="input-box">
+            {# <input type="submit" class="submit" value="Inscription" /> #}
+            {{ form_row(form.submit)}}
+        </div>
+        {# </form> #}
+        {{ form_end(form) }}
+        <div class="two-col">
+            <div class="one">
+                <input type="checkbox" id="register-check" />
+                <label for="register-check"> Se souvenir de moi</label>
+            </div>
+            <div class="two">
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Synaps System | Accueil{% endblock %}
+
+{% set profilPath = path('commercial.profil', {id: user.id}) %}
+
+{% block sidebar %}
+    {% include "partials/_sidebar.html.twig" %}
+{% endblock %}
+
+{% block header %}
+    {% include "partials/_header.html.twig" with {'profilPath': profilPath} %}
+{% endblock %}
+
+{% block body %}
+    <h1>commercial.home</h1>
+{% endblock %}

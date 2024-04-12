@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Synaps System | Contacts 
+    {% if profil == 'contact' %}
+        de l'entreprise {{ entreprise.name }}
+    {% endif %}   
+{% endblock %}
+
+{% if profil == 'commercial' %}
+    {% set profilPath = path('commercial.profil', {id: user.id}) %}
+{% elseif profil == 'contact' %}
+    {% set profilPath = path('contact.profil', {id: user.id}) %}
+{% endif %}
+
+{% block sidebar %}
+    {% if profil == 'contact' %}
+        {% include "partials/_sidebar_contact.html.twig" %}
+    {% else %}
+        {% include "partials/_sidebar.html.twig" %}
+    {% endif %}
+{% endblock %}
+
+{% if entreprise is defined %}
+    {% set csvPath = path('csv.contactsByEntreprise', {id: entreprise.id}) %}
+{% elseif site is defined %}
+    {% set csvPath = path('csv.contactsBySite', {id: site.id}) %}
+{% else %}
+    {% set csvPath = path('csv.contacts') %}
+{% endif %}
+
+{% block body %}
+            <div class="card mb-4" style="width: 1200px;">
+                <div class="card-header">
+                    <i class="fa-solid fa-users me-1"></i>
+                    Liste des contacts 
+                    {% if profil == 'contact' %}
+                     de l'entreprise {{ entreprise.name }}
+                    {% endif %}
+                </div>
+
+                {% for message in app.flashes('success') %}
+                    <div class='alert alert-success mt-4'>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                <div class="card-body">
+                <div class ="d-flex justify-content-between align-items-center">
+                    {# <a href="{{ path('entreprise.new')}}" class="btn btn-danger btn-sm col-2">Ajouter</a> #}
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic outlined example">
+                        <button type="button" class="btn btn-outline-secondary"><a href="{{ csvPath }}">CSV</a></button>
+                        {# <button type="button" class="btn btn-outline-secondary"><a href="{{ path('entreprise.exportPdfContacts', { id: entreprise.id }) }}">PDF</a></button> #}
+                    </div>
+                </div>
+
+                    <table id="datatablesSimple" class="table table-bordered table-striped" style="white-space:nowrap;width:100%;">
+                        <thead>
+                            <tr>
+                                <th>Prénom</th>
+                                <th>Nom</th>
+                                <th>Fonction</th>
+                                {% if profil == 'commercial' %}
+                                    <th>Site</th>
+                                    <th>Entreprise</th>
+                                {% endif %}
+                                <th><i class="fa-regular fa-trash-can"></th>
+                                {# <th><i class="fa-regular fa-trash-can"></i></th> #}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for contact in contacts %}
+                                <tr>
+                                    <td><a href="{{ path('contact.edit', { id: contact.id}) }}">{{contact.lastName}}</a></td>
+                                    <td>{{contact.firstName}}</td>
+                                    <td>{{contact.fonction}}</td>
+                                    {% if profil == 'commercial' %}
+                                        <td>{{ contact.site }}</td>
+                                        <td>{{ contact.entreprise }}</td>
+                                    {% endif %}
+                                    <td>
+                                    <a href="{{ path('contact.delete', { id: contact.id}) }}"><i class="fa-regular fa-trash-can"></i></a>
+                                    </td>
+                                    {# <td>
+                                    <a href="{{ path('contact.delete', { id: contact.id }) }}" style="color: #dc3545; text-aling:center;"><i class="fa-regular fa-trash-can"></i></a>
+                                    </td> #}
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        
+
+{% endblock %}

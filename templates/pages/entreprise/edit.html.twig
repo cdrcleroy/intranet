@@ -1,0 +1,140 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EntrepriseController!{% endblock %}
+
+{% if profil == 'commercial' %}
+    {% set profilPath = path('commercial.profil', {id: user.id}) %}
+{% elseif profil == 'contact' %}
+    {% set profilPath = path('contact.profil', {id: user.id}) %}
+{% endif %}
+
+{% block sidebar %}
+    {% if profil == 'contact' %}
+        {% include "partials/_sidebar_contact.html.twig" %}
+    {% else %}
+        {% include "partials/_sidebar.html.twig" %}
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <div class="card mb-4" style="width: 800px;">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Mon entreprise
+        </div>
+        <div class="card-body">
+            {{ form_start(form) }}
+                <div class="row align-items-center">
+                    <div class="col-3 justify-content-end">
+                        {{ form_label(form.name) }}
+                    </div>
+                    <div class="col-9 align-items-center d-flex">
+                        {{ form_widget(form.name) }}
+                        {{ form_errors(form.name) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        {{ form_label(form.address) }}
+                    </div>
+                    <div class="col-9 align-items-center d-flex">
+                        {{ form_widget(form.address) }}
+                        {{ form_errors(form.address) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        {{ form_label(form.address2) }}
+                    </div>
+                    <div class="col-9 align-items-center d-flex">
+                        {{ form_widget(form.address2) }}
+                        {{ form_errors(form.address2) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        {{ form_label(form.postalcode) }}
+                    </div>
+                    <div class="col align-items-center d-flex">
+                        {{ form_widget(form.postalcode) }}
+                        {{ form_errors(form.postalcode) }}
+                    </div>
+                    <div class="col-2">
+                        {{ form_label(form.city) }}
+                    </div>
+                    <div class="col align-items-center d-flex">
+                        {{ form_widget(form.city) }}
+                        {{ form_errors(form.city) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        {{ form_label(form.country) }}
+                    </div>
+                    <div class="col-9 align-items-center d-flex">
+                        {{ form_widget(form.country) }}
+                        {{ form_errors(form.country) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        {{ form_label(form.email) }}
+                    </div>
+                    <div class="col-9 align-items-center d-flex">
+                        {{ form_widget(form.email) }}
+                        {{ form_errors(form.email) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        {{ form_label(form.website) }}
+                    </div>
+                    <div class="col-9 align-items-center d-flex">
+                        {{ form_widget(form.website) }}
+                        {{ form_errors(form.website) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        {{ form_label(form.tel) }}
+                    </div>
+                    <div class="col align-items-center d-flex">
+                        {{ form_widget(form.tel) }}
+                        {{ form_errors(form.tel) }}
+                    </div>
+                    <div class="col-2">
+                        {{ form_label(form.tel2) }}
+                    </div>
+                    <div class="col align-items-center d-flex">
+                        {{ form_widget(form.tel2) }}
+                        {{ form_errors(form.tel2) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        {{ form_label(form.fax) }}
+                    </div>
+                    <div class="col align-items-center d-flex">
+                        {{ form_widget(form.fax) }}
+                        {{ form_errors(form.fax) }}
+                    </div>
+                    <div class="col-2">
+                        {{ form_label(form.siren) }}
+                    </div>
+                    <div class="col align-items-center d-flex">
+                        {{ form_widget(form.siren) }}
+                        {{ form_errors(form.siren) }}
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-3">
+                        {{ form_widget(form.submit) }}
+                    </div>
+                    <div class="col-3">
+                        <a href="{{ path('entreprise.delete', { id: entreprise.id}) }}"><button type="button" class="btn btn-secondary">Supprimer</button></a>
+                    </div>
+                </div>
+            {{ form_end(form)}}
+        </div>
+    </div>
+{% endblock %}

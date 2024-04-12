@@ -1,0 +1,99 @@
+<div id="sidebar">
+    <button id="sidebar__collapse">
+        <svg>
+            <use xlink:href="#icon-collapse"></use>
+        </svg>
+        <span>Collapse menu</span>
+    </button>
+
+    <nav id="sidebar__nav">
+        <ul>
+            <li class="menu-heading"><span>Compte</span></li>
+            <li>
+                <a href="#" class="sub-btn">
+                    <svg>
+                        <use xlink:href="#wallet"></use>
+                    </svg>
+                    <span>Mon entreprise</span>
+                    <i class="fa-solid fa-chevron-down custom-icon" style="position: absolute;
+                    right: 1.5rem;"></i>
+                </a>
+                <div class="sub-menu" style="display: none;">
+                    <a href="{{ path('entreprise.edit', {id: user.entreprise.id}) }}" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Mon entreprise</a>
+                    <a href="{{ path('site.edit', {id: user.site.id}) }}" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Mon site</a>
+                    <a href="{{ path('contact.contacts') }}" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Contacts sur site</a>
+                </div>
+            </li>
+            <li class="menu-heading"><span>Commandes / Factures</span></li>
+            <li>
+                <a href="#" class="sub-btn">
+                    <svg>
+                        <use xlink:href="#check-circle"></use>
+                    </svg>
+                    <span>Commandes</span>
+                    <i class="fa-solid fa-chevron-down custom-icon" style="position: absolute;
+                    right: 1.5rem;"></i>
+                </a>
+                <div class="sub-menu" style="display: none;">
+                    <a href="" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Eligibilité</a>
+                    <a href="" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Suivi des commandes</a>
+                </div>
+            </li>
+            <li>
+                <a href="#" class="sub-btn">
+                    <svg>
+                        <use xlink:href="#file-alt"></use>
+                    </svg>
+                    <span>Documents</span>
+                    <i class="fa-solid fa-chevron-down custom-icon" style="position: absolute;
+                    right: 1.5rem;"></i>
+                </a>
+                <div class="sub-menu" style="display: none;">
+                    <a href="" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Factures</a>
+                    <a href="" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Conditions de vente</a>
+                </div>
+            </li>
+            <li>
+                <a href="#" class="sub-btn">
+                    <svg>
+                        <use xlink:href="#book-open"></use>
+                    </svg>
+                    <span>Offres Synaps</span>
+                    <i class="fa-solid fa-chevron-down custom-icon" style="position: absolute;
+                    right: 1.5rem;"></i>
+                </a>
+                <div class="sub-menu" style="display: none;">
+                    <a href="" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Catalogue</a>
+                </div>
+            </li>
+            <li class="menu-heading"><span>Support</span></li>
+            <li>
+                <a href="#" class="sub-btn">
+                    <svg>
+                        <use xlink:href="#shield-question"></use>
+                    </svg>
+                    <span>Tickets</span>
+                    <i class="fa-solid fa-chevron-down custom-icon" style="position: absolute;
+                    right: 1.5rem;"></i>
+                </a>
+                <div class="sub-menu" style="display: none;">
+                    <a href="" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Nouveau ticket</a>
+                    <a href="" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Suivi des tickets</a>
+                </div>
+            </li>
+            <li>
+                <a href="#" class="sub-btn">
+                    <svg>
+                        <use xlink:href="#setting"></use>
+                    </svg>
+                    <span>Monitoring</span>
+                    <i class="fa-solid fa-chevron-down custom-icon" style="position: absolute;
+                    right: 1.5rem;"></i>
+                </a>
+                <div class="sub-menu" style="display: none;">
+                    <a href="" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Connexions</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</div>

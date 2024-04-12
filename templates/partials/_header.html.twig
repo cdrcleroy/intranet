@@ -1,0 +1,50 @@
+<header id="main-header">
+    <nav>
+        <button id="main-header__sidebar-toggle">
+            <svg id="toggle-icon-menu">
+                <use xlink:href="#icon-menu"></use>
+            </svg>
+            <svg id="toggle-icon-close">
+                <use xlink:href="#icon-close"></use>
+            </svg>
+        </button>
+
+        <ul>
+            <li id="main-header__logo">
+                <a href="/">
+                    <svg>
+                        <use xlink:href="#synaps-logo"></use>
+                    </svg>
+                </a>
+            </li>
+            <li>
+                <a href="/">
+                    <svg>
+                        <use xlink:href="#icon-house"></use>
+                    </svg>
+                    <span>Accueil</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="profile-dropdown">
+            <ul>
+                <li>
+                    <a href="{{ profilPath }}">
+                        <svg>
+                            <use xlink:href="#icon-user"></use>
+                        </svg>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/deconnexion">
+                        <svg>
+                            <use xlink:href="#signout"></use>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
