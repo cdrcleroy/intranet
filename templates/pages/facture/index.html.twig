@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Synaps System | Factures 
+    {% if profil == 'contact' %}
+        {% if entreprise is defined and entreprise is not null %}
+            de l'entreprise {{ entreprise.name }}
+        {% elseif site is defined and site is not null %}
+            du site {{ site.name }}
+        {% endif %}
+        
+    {% endif %}   
+{% endblock %}
+
+{% if profil == 'commercial' %}
+    {% set profilPath = path('commercial.profil', {id: user.id}) %}
+{% elseif profil == 'contact' %}
+    {% set profilPath = path('contact.profil', {id: user.id}) %}
+{% endif %}
+
+{% block sidebar %}
+    {% if profil == 'contact' %}
+        {% include "partials/_sidebar_contact.html.twig" %}
+    {% else %}
+        {% include "partials/_sidebar.html.twig" %}
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <div class="card mb-4" style="width: 750px;">
+        <div class="card-header">
+            <i class="fa-solid fa-file"></i>
+            Vos factures 
+        </div>
+
+        <div class="card-body">
+            <table id="datatablesSimple" class="table table-bordered table-striped" style="white-space:nowrap;width:100%;">
+                <thead>
+                    <tr>
+                        <th>Nom du document</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for file in files %}
+                        <tr>
+                            <td>{{file.name}}</td>
+                            <td><a href="{{ path('facture.download', {id: user.entreprise.id, filename: file.name}) }}"><i class="fa-solid fa-download"></i></a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

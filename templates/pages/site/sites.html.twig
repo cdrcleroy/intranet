@@ -22,8 +22,10 @@
 
 {% if entreprise is defined %}
     {% set csvPath = path('csv.sitesByEntreprise', {id: entreprise.id}) %}
+    {% set pdfPath = path('pdf.sitesByEntreprise', {id: entreprise.id}) %}
 {% else %}
     {% set csvPath = path('csv.sites') %}
+    {% set pdfPath = path('pdf.sites') %}
 {% endif %}
 
 
@@ -47,7 +49,7 @@
                     {# <a href="{{ path('entreprise.new')}}" class="btn btn-danger btn-sm col-2">Ajouter</a> #}
                     <div class="btn-group btn-group-sm" role="group" aria-label="Basic outlined example">
                         <button type="button" class="btn btn-outline-secondary"><a href="{{ csvPath }}">CSV</a></button>
-                        {# <button type="button" class="btn btn-outline-secondary"><a href="{{ path('entreprise.exportPdfContacts', { id: entreprise.id }) }}">PDF</a></button> #}
+                        <button type="button" class="btn btn-outline-secondary"><a href="{{ pdfPath }}">PDF</a></button>
                     </div>
                 </div>
 

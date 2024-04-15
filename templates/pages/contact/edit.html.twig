@@ -23,68 +23,172 @@
             Modification du profil
         </div>
         <div class="card-body">
+            <div class ="d-flex justify-content-between align-items-center">
+                <div class="btn-group btn-group-sm" role="group" aria-label="Basic outlined example">
+                    <button type="button" class="btn btn-outline-secondary"><a href="{{ path('csv.contact', {id: contact.id}) }}">CSV</a></button>
+                    <button type="button" class="btn btn-outline-secondary"><a href="{{ path('pdf.contact', {id: contact.id}) }}">PDF</a></button>
+                </div>
+                <div class="btn-group btn-group-sm" role="group" aria-label="Basic outlined example">
+                    <button type="button" class="btn btn-outline-secondary"><a href="{{ path('entreprise.edit', {id: contact.entreprise.id}) }}">Entreprise</a></button>
+                    <button type="button" class="btn btn-outline-secondary"><a href="{{ path('site.edit', {id: contact.site.id}) }}">Site</a></button>
+                </div>
+            </div>
             {{ form_start(form) }}
-            
-                <div class="row">
-                    <div class="col-2">
-                        {{ form_label(form.firstName) }}
-                    </div>
-                    <div class="col">
-                        {{ form_widget(form.firstName) }}
-                        {{ form_errors(form.firstName) }}
-                    </div>
-                    <div class="col-2">
-                        {{ form_label(form.lastName) }}
-                    </div>
-                    <div class="col">
-                        {{ form_widget(form.lastName) }}
-                        {{ form_errors(form.lastName) }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-2">
-                        {{ form_label(form.email) }}
-                    </div>
-                    <div class="col">
-                        {{ form_widget(form.email) }}
-                        {{ form_errors(form.email) }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-2">
-                        {{ form_label(form.tel) }}
-                    </div>
-                    <div class="col">
-                        {{ form_widget(form.tel) }}
-                        {{ form_errors(form.tel) }}
-                    </div>
-                    <div class="col-2">
-                        {{ form_label(form.mobile) }}
-                    </div>
-                    <div class="col">
-                        {{ form_widget(form.mobile) }}
-                        {{ form_errors(form.mobile) }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-2">
-                        {{ form_label(form.fonction) }}
-                    </div>
-                    <div class="col">
-                        {{ form_widget(form.fonction) }}
-                        {{ form_errors(form.fonction) }}
-                    </div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-3">
-                        {{ form_widget(form.submit) }}
-                    </div>
-                    {% if user.id != contact.id %}
-                        <div class="col-3">
-                            <a href="{{ path('contact.delete', { id: contact.id}) }}"><button type="button" class="btn btn-secondary">Supprimer</button></a>
+                {% if user.id == contact.id %}
+                    <div class="row">
+                        <div class="col-2">
+                            {{ form_label(form.firstName) }}
                         </div>
-                    {% endif %}
-                </div>
+                        <div class="col">
+                            {{ form_widget(form.firstName) }}
+                            {{ form_errors(form.firstName) }}
+                        </div>
+                        <div class="col-2">
+                            {{ form_label(form.lastName) }}
+                        </div>
+                        <div class="col">
+                            {{ form_widget(form.lastName) }}
+                            {{ form_errors(form.lastName) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            {{ form_label(form.email) }}
+                        </div>
+                        <div class="col">
+                            {{ form_widget(form.email) }}
+                            {{ form_errors(form.email) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            {{ form_label(form.tel) }}
+                        </div>
+                        <div class="col">
+                            {{ form_widget(form.tel) }}
+                            {{ form_errors(form.tel) }}
+                        </div>
+                        <div class="col-2">
+                            {{ form_label(form.mobile) }}
+                        </div>
+                        <div class="col">
+                            {{ form_widget(form.mobile) }}
+                            {{ form_errors(form.mobile) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            {{ form_label(form.fonction) }}
+                        </div>
+                        <div class="col">
+                            {{ form_widget(form.fonction) }}
+                            {{ form_errors(form.fonction) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            {{ form_label(form.entreprise) }}
+                        </div>
+                        <div class="col">
+                            {{ form_widget(form.entreprise) }}
+                            {{ form_errors(form.entreprise) }}
+                        </div>
+                        <div class="col-2">
+                            {{ form_label(form.site) }}
+                        </div>
+                        <div class="col">
+                            {{ form_widget(form.site) }}
+                            {{ form_errors(form.site) }}
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-3">
+                            {{ form_widget(form.submit) }}
+                        </div>
+                        {% if profil == 'commercial' %}
+                            <div class="col-3">
+                                <a href="{{ path('contact.delete', { id: contact.id}) }}"><button type="button" class="btn btn-secondary">Supprimer</button></a>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% elseif user.id != contact.id %}
+                     <div class="row">
+                        <div class="col-2">
+                            {{ form_label(form.firstName) }}
+                        </div>
+                        <div class="col">
+                            {{ form_widget(form.firstName, {'attr': {'disabled': 'disabled'}}) }}
+                            {{ form_errors(form.firstName) }}
+                        </div>
+                        <div class="col-2">
+                            {{ form_label(form.lastName) }}
+                        </div>
+                        <div class="col">
+                            {{ form_widget(form.lastName, {'attr': {'disabled': 'disabled'}}) }}
+                            {{ form_errors(form.lastName) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            {{ form_label(form.email) }}
+                        </div>
+                        <div class="col">
+                            {{ form_widget(form.email, {'attr': {'disabled': 'disabled'}}) }}
+                            {{ form_errors(form.email) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            {{ form_label(form.tel) }}
+                        </div>
+                        <div class="col">
+                            {{ form_widget(form.tel, {'attr': {'disabled': 'disabled'}}) }}
+                            {{ form_errors(form.tel) }}
+                        </div>
+                        <div class="col-2">
+                            {{ form_label(form.mobile) }}
+                        </div>
+                        <div class="col">
+                            {{ form_widget(form.mobile, {'attr': {'disabled': 'disabled'}}) }}
+                            {{ form_errors(form.mobile) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            {{ form_label(form.fonction) }}
+                        </div>
+                        <div class="col">
+                            {{ form_widget(form.fonction, {'attr': {'disabled': 'disabled'}}) }}
+                            {{ form_errors(form.fonction) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            {{ form_label(form.entreprise) }}
+                        </div>
+                        <div class="col">
+                            {{ form_widget(form.entreprise, {'attr': {'disabled': 'disabled'}}) }}
+                            {{ form_errors(form.entreprise) }}
+                        </div>
+                        <div class="col-2">
+                            {{ form_label(form.site) }}
+                        </div>
+                        <div class="col">
+                            {{ form_widget(form.site, {'attr': {'disabled': 'disabled'}}) }}
+                            {{ form_errors(form.site) }}
+                        </div>
+                    </div>   
+                    <div class="row justify-content-center">
+                        <div class="col-3">
+                            {{ form_widget(form.submit, {'attr': {'disabled': 'disabled'}}) }}
+                        </div>
+                        {% if profil == 'commercial' %}
+                            <div class="col-3">
+                                <a href="{{ path('contact.delete', { id: contact.id}) }}"><button type="button" class="btn btn-secondary">Supprimer</button></a>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
             {{ form_end(form)}}
         </div>
     </div>

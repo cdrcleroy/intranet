@@ -2,9 +2,11 @@
 
 namespace App\Command;
 
+use App\Entity\Facture;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Dotenv\Dotenv;
 use App\Repository\EntrepriseRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputOption;
@@ -25,14 +27,19 @@ class ScanFacturesCommand extends Command
     
     private $repository;
 
+    private $manager;
+    
     public function __construct(
         EntrepriseRepository $repository, 
-        MailerInterface $mailer
+        MailerInterface $mailer,
+        EntityManagerInterface $manager,
         )
     {
         parent::__construct();
         $this->repository = $repository;
         $this->mailer = $mailer;
+        $this->manager = $manager;
+
     }
 
     protected function configure(): void
@@ -49,13 +56,10 @@ class ScanFacturesCommand extends Command
         $dotenv = new Dotenv();
         $dotenv->loadEnv(__DIR__.'/../../.env');
 
-        
         $io = new SymfonyStyle($input, $output);
 
-        // Récupérer les horodatages des fichiers enregistrés précédemment (s'ils existent)
-        $previousTimestamps = []; // Charger les horodatages à partir d'un fichier précédemment enregistré (par exemple, JSON)
+        $previousTimestamps = [];
 
-        // Initialiser le tableau des horodatages actuels
         $currentTimestamps = [];
 
         // Chemin vers le fichier contenant les horodatages précédents
@@ -106,11 +110,16 @@ class ScanFacturesCommand extends Command
                         // Nouveau fichier détecté ou fichier modifié
                         echo "Nouveau fichier détecté ou fichier modifié : $file dans le dossier de l'entreprise $entreprise\n";
 
+                        $facture = new Facture();
+                        $facture->setName($file);
+                        $facture->setCreatedAt(new \DateTimeImmutable(date('Y-m-d H:i:s', $currentTimestamp)));
+
                         $entrepriseObject = $this->repository->findOneBy(['slug' => $entreprise]);
 
                         if ($entrepriseObject) {
                             // Récupérer l'e-mail de l'entreprise
                             $email = $entrepriseObject->getEmail();
+                            $facture->setEntreprise($entrepriseObject);
 
                             if($email) {
                                 // envoyer mail a l'entreprise
@@ -128,6 +137,9 @@ class ScanFacturesCommand extends Command
                         } else {
                             $io->error(sprintf('Impossible de trouver l\'entreprise correspondant au slug %s.', $entreprise));
                         }
+
+                        $this->manager->persist($facture);
+                        $this->manager->flush();
 
                     }
 

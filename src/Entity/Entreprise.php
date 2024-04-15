@@ -90,12 +90,19 @@ class Entreprise
     #[ORM\OneToMany(targetEntity: Site::class, mappedBy: 'entreprise', cascade: ['remove'])]
     private Collection $sites;
 
+    /**
+     * @var Collection<int, Facture>
+     */
+    #[ORM\OneToMany(targetEntity: Facture::class, mappedBy: 'entreprise', orphanRemoval: true)]
+    private Collection $factures;
+
     public function __construct(SluggerInterface $slugger)
     {
         $this->slugger = $slugger;
         $this->contacts = new ArrayCollection();
         $this->tickets = new ArrayCollection();
         $this->sites = new ArrayCollection();
+        $this->factures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -357,6 +364,36 @@ class Entreprise
             // set the owning side to null (unless already changed)
             if ($site->getEntreprise() === $this) {
                 $site->setEntreprise(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Facture>
+     */
+    public function getFactures(): Collection
+    {
+        return $this->factures;
+    }
+
+    public function addFacture(Facture $facture): static
+    {
+        if (!$this->factures->contains($facture)) {
+            $this->factures->add($facture);
+            $facture->setEntreprise($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFacture(Facture $facture): static
+    {
+        if ($this->factures->removeElement($facture)) {
+            // set the owning side to null (unless already changed)
+            if ($facture->getEntreprise() === $this) {
+                $facture->setEntreprise(null);
             }
         }
 

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Infos de l'entreprise {{ entreprise.name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Infos de l'entreprise {{ entreprise.name }}</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Adresse</th>
+                <th>Code Postal</th>
+                <th>Ville</th>
+                <th>Pays</th>
+                <th>Site Web</th>
+                <th>Téléphone</th>
+                <th>SIREN</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ entreprise.name }}</td>
+                <td>{{ entreprise.address }}</td>
+                <td>{{ entreprise.postalcode }}</td>
+                <td>{{ entreprise.city }}</td>
+                <td>{{ entreprise.country }}</td>
+                <td>{{ entreprise.website }}</td>
+                <td>{{ entreprise.tel }}</td>
+                <td>{{ entreprise.siren }}</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

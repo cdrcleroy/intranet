@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Infos de {{ contact.firstName }} {{ contact.lastName }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Infos de {{ contact.firstName }} {{ contact.lastName }}</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Téléphone</th>
+                <th>Mobile</th>
+                <th>Fonction</th>
+                <th>Email</th>
+                <th>Entreprise</th>
+                <th>Site</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ contact.lastName }}</td>
+                <td>{{ contact.firstName }}</td>
+                <td>{{ contact.tel }}</td>
+                <td>{{ contact.mobile }}</td>
+                <td>{{ contact.fonction }}</td>
+                <td>{{ contact.email }}</td>
+                <td>{{ contact.entreprise }}</td>
+                <td>{{ contact.site }}</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

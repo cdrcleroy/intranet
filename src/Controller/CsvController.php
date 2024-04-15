@@ -6,6 +6,7 @@ use App\Service\CsvExporter;
 use App\Repository\SiteRepository;
 use App\Repository\ContactRepository;
 use App\Repository\EntrepriseRepository;
+use App\Service\FileService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -46,6 +47,36 @@ class CsvController extends AbstractController
         return $response;
     }
 
+    #[Route('/entreprise/{id}/csv', 'csv.entreprise', methods: ['GET'])]
+    public function entreprise(
+        EntrepriseRepository $repository,
+        CsvExporter $csvExporter,
+        int $id,
+    ): Response
+    {
+        $entreprise = $repository->findOneBy(['id' => $id]);
+
+        $data[] = [
+            'Nom' => $entreprise->getName(), 
+            'Adresse' => $entreprise->getAddress() ?? 'null',
+            'Adresse 2' => $entreprise->getAddress2() ?? 'null', 
+            'Code Postal' => $entreprise->getPostalCode() ?? 'null', 
+            'Ville' => $entreprise->getCity() ?? 'null', 
+            'Pays' => $entreprise->getCountry() ?? 'null', 
+            'Site Web' => $entreprise->getWebsite() ?? 'null',
+            'Email' => $entreprise->getEmail() ?? 'null',
+            'Téléphone' => $entreprise->getTel() ?? 'null',
+            'Téléphone 2' => $entreprise->getTel2() ?? 'null',
+            'Fax' => $entreprise->getFax() ?? 'null',
+            'SIREN' => $entreprise->getSiren() ?? 'null',
+        ];
+
+        $response = $csvExporter->export($data, $entreprise->getSlug() . '.csv');
+        $response->headers->set('Content-Disposition', 'attachment; filename="' . $entreprise->getSlug() . '.csv"');
+
+        return $response;
+    }
+
     #[Route('/sites/csv', 'csv.sites', methods: ['GET'])]
     public function sites(
         SiteRepository $repository,
@@ -78,6 +109,35 @@ class CsvController extends AbstractController
         return $response;
     }
 
+    #[Route('/site/{id}/csv', 'csv.site', methods: ['GET'])]
+    public function site(
+        SiteRepository $repository,
+        int $id,
+        CsvExporter $csvExporter,
+    ): Response
+    {
+        $site = $repository->findOneBy(['id' => $id]);
+
+        $data[] = [
+            'Nom' => $site->getName(), 
+            'Adresse' => $site->getAddress() ?? 'null',
+            'Adresse 2' => $site->getAddress2() ?? 'null', 
+            'Code Postal' => $site->getPostalCode() ?? 'null', 
+            'Ville' => $site->getCity() ?? 'null', 
+            'Pays' => $site->getCountry() ?? 'null', 
+            'Email' => $site->getEmail() ?? 'null',
+            'Téléphone' => $site->getTel() ?? 'null',
+            'Téléphone 2' => $site->getTel2() ?? 'null',
+            'Fax' => $site->getFax() ?? 'null',
+            'Entreprise' => $site->getEntreprise() ?? 'null',
+        ];
+
+        $response = $csvExporter->export($data, $site->getSlug() . '.csv"');
+        $response->headers->set('Content-Disposition', 'attachment; filename="' . $site->getSlug() . '.csv"');
+
+        return $response;
+    }
+
     #[Route('/entreprise/{id}/sites/csv', 'csv.sitesByEntreprise', methods: ['GET'])]
     public function sitesByEntreprise(
         EntrepriseRepository $repository,
@@ -106,7 +166,7 @@ class CsvController extends AbstractController
             ];
         }
         
-        $response = $csvExporter->export($data, 'sites.csv');
+        $response = $csvExporter->export($data, $entreprise->getSlug() . '_sites.csv"');
         $response->headers->set('Content-Disposition', 'attachment; filename="' . $entreprise->getSlug() . '_sites.csv"');
 
         return $response;
@@ -165,7 +225,7 @@ class CsvController extends AbstractController
             ];
         }
         
-        $response = $csvExporter->export($data, 'contacts.csv');
+        $response = $csvExporter->export($data, $entreprise->getSlug() . '_contacts.csv"');
         $response->headers->set('Content-Disposition', 'attachment; filename="' . $entreprise->getSlug() . '_contacts.csv"');
 
         return $response;
@@ -196,8 +256,59 @@ class CsvController extends AbstractController
             ];
         }
         
-        $response = $csvExporter->export($data, 'contacts.csv');
+        $response = $csvExporter->export($data, $site->getSlug() . '_contacts.csv"');
         $response->headers->set('Content-Disposition', 'attachment; filename="' . $site->getSlug() . '_contacts.csv"');
+
+        return $response;
+    }
+
+    #[Route('/contact/{id}/csv', 'csv.contact', methods: ['GET'])]
+    public function contact(
+        ContactRepository $repository,
+        int $id,
+        CsvExporter $csvExporter,
+    ): Response
+    {
+        $contact = $repository->findOneBy(['id' => $id]);
+
+        $data[] = [
+            'Prénom' => $contact->getFirstname(), 
+            'Nom' => $contact->getLastname() ?? 'null',
+            'Téléphone' => $contact->getTel() ?? 'null', 
+            'Mobile' => $contact->getMobile() ?? 'null', 
+            'Email' => $contact->getEmail() ?? 'null', 
+            'Fonction' => $contact->getFonction() ?? 'null', 
+            'Entreprise' => $contact->getEntreprise() ?? 'null',
+            'Site' => $contact->getSite() ?? 'null',
+        ];
+
+        $response = $csvExporter->export($data, $contact->getLastName() . '_' . $contact->getFirstName() . '.csv');
+        $response->headers->set('Content-Disposition', 'attachment; filename="' . $contact->getLastName() . '_' . $contact->getFirstName() . '.csv');
+
+        return $response;
+    }
+
+    #[Route('/entreprise/{id}/factures/csv', 'csv.factures', methods: ['GET'])]
+    public function factures(
+        EntrepriseRepository $repository,
+        int $id,
+        CsvExporter $csvExporter,
+        FileService $fileService,
+        ): Response
+    {
+        $entreprise = $repository->findOneBy(['id' => $id]);
+
+        $files = $fileService->getFilesByCompany($entreprise->getSlug());
+
+        $data = [];
+
+        foreach ($files as $file) {
+            $fileName = $file['name'];
+            $data[] = $fileName;
+        };
+
+        $response = $csvExporter->export($data, $entreprise->getSlug() . '.csv');
+        $response->headers->set('Content-Disposition', 'attachment; filename="' . $entreprise->getSlug() . '.csv');
 
         return $response;
     }

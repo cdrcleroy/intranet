@@ -177,6 +177,23 @@ class SiteType extends AbstractType
                 ],
                 'required' => false
             ])
+            ->add('entreprise', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control mb-4',
+                    'minlength' => '2',
+                    'maxlength' => '50',
+                    'placeholder' => 'Entreprise',
+                    'disabled' => 'disabled'
+                ],
+                'label' => 'Entreprise',
+                'label_attr' => [
+                    'class' => 'form-label mt-2'
+                ],
+                'constraints' => [
+                    new Assert\Length(['min' => 2, 'max' => 50]),
+                    new Assert\NotBlank()
+                ]
+            ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-danger mb-4'

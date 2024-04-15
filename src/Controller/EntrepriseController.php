@@ -91,7 +91,7 @@ class EntrepriseController extends AbstractController
         return $this->redirectToRoute('entreprise.entreprises');
     }
 
-    #[Route('/entreprise/{id}/sites)', 'entreprise.sites', methods: ['GET'])]
+    #[Route('/entreprise/{id}/sites', 'entreprise.sites', methods: ['GET'])]
     public function sites(
         EntrepriseRepository $repository,
         int $id,
@@ -112,7 +112,7 @@ class EntrepriseController extends AbstractController
         ]);
     }
 
-    #[Route('/entreprise/{id}/contacts)', 'entreprise.contacts', methods: ['GET'])]
+    #[Route('/entreprise/{id}/contacts', 'entreprise.contacts', methods: ['GET'])]
     public function contacts(
         EntrepriseRepository $repository,
         int $id,

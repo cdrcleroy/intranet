@@ -23,6 +23,16 @@
             Mon site
         </div>
         <div class="card-body">
+            <div class ="d-flex justify-content-between align-items-center">
+                <div class="btn-group btn-group-sm" role="group" aria-label="Basic outlined example">
+                    <button type="button" class="btn btn-outline-secondary"><a href="{{ path('csv.site', {id: site.id}) }}">CSV</a></button>
+                    <button type="button" class="btn btn-outline-secondary"><a href="{{ path('pdf.site', {id: site.id}) }}">PDF</a></button>
+                </div>
+                <div class="btn-group btn-group-sm" role="group" aria-label="Basic outlined example">
+                    <button type="button" class="btn btn-outline-secondary"><a href="{{ path('entreprise.edit', {id: site.entreprise.id}) }}">Entreprise</a></button>
+                    <button type="button" class="btn btn-outline-secondary"><a href="{{ path('site.contacts', {id: site.id}) }}">Contacts</a></button>
+                </div>
+            </div>
             {{ form_start(form) }}
                 <div class="row align-items-center">
                     <div class="col-3 justify-content-end">
@@ -106,6 +116,15 @@
                     <div class="col align-items-center d-flex">
                         {{ form_widget(form.email) }}
                         {{ form_errors(form.email) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        {{ form_label(form.entreprise) }}
+                    </div>
+                    <div class="col-9 align-items-center d-flex">
+                        {{ form_widget(form.entreprise) }}
+                        {{ form_errors(form.entreprise) }}
                     </div>
                 </div>
                 <div class="row justify-content-center">
