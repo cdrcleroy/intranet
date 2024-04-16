@@ -33,9 +33,16 @@
         </div>
 
         <div class="card-body">
+            <div class ="d-flex justify-content-between align-items-center">
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic outlined example">
+                        <button type="button" class="btn btn-outline-secondary"><a href="{{ path('csv.factures', {id: entreprise.id}) }}">CSV</a></button>
+                        <button type="button" class="btn btn-outline-secondary"><a href="{{ path('pdf.factures', {id: entreprise.id}) }}">PDF</a></button>
+                    </div>
+                </div>
             <table id="datatablesSimple" class="table table-bordered table-striped" style="white-space:nowrap;width:100%;">
                 <thead>
                     <tr>
+                        <th>Date de création</th>
                         <th>Nom du document</th>
                         <th>Actions</th>
                     </tr>
@@ -43,6 +50,7 @@
                 <tbody>
                     {% for file in files %}
                         <tr>
+                            <td>{{file.createdAt|date("d/m/Y")}}</td>
                             <td>{{file.name}}</td>
                             <td><a href="{{ path('facture.download', {id: user.entreprise.id, filename: file.name}) }}"><i class="fa-solid fa-download"></i></a></td>
                         </tr>

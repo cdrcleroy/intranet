@@ -2,14 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\Contact;
 use App\Form\EntrepriseType;
 use App\Repository\EntrepriseRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class EntrepriseController extends AbstractController
 {
@@ -25,6 +27,10 @@ class EntrepriseController extends AbstractController
         
         $role = $this->isGranted('ROLE_COMMERCIAL') ? 'commercial' : 'contact';
         $user = $this->getUser();
+
+        if ($user instanceof Contact && $user->getEntreprise() !== $entreprise) {
+            throw new AccessDeniedException("Vous n'êtes pas autorisé à modifier cette entreprise.");
+        }
 
         $form = $this->createForm(EntrepriseType::class, $entreprise);
 

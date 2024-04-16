@@ -320,4 +320,10 @@ class Contact implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function __toString()
+    {
+        $fullName = $this->getFirstName() . ' ' . $this->getLastName();
+        return $fullName;
+    }
 }

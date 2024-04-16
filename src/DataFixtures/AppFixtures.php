@@ -3,15 +3,15 @@
 namespace App\DataFixtures;
 
 use Faker\Factory;
+use App\Entity\Site;
 use Faker\Generator;
 use App\Entity\Ticket;
 use App\Entity\Contact;
 use App\Entity\Commercial;
 use App\Entity\Entreprise;
-use App\Entity\Site;
 use App\Entity\TicketObjet;
 use App\Entity\TicketStatus;
-use App\Service\FileService;
+use Symfony\Component\Dotenv\Dotenv;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -22,21 +22,20 @@ class AppFixtures extends Fixture
 
     private $slugger;
 
-    private $fileService;
-
     public function __construct(
         SluggerInterface $slugger,
-        FileService $fileService
         )
     {
         $this->faker = Factory::create('fr_FR');
         $this->slugger = $slugger;
-        $this->fileService = $fileService;
     }
     
     public function load(ObjectManager $manager): void
     {
-        
+        $dotenv = new Dotenv();
+        $dotenv->load(__DIR__.'/../../.env');
+
+        $facturesDirectory = getenv('FACTURES_DIRECTORY');
 
         for ($i=0; $i < 30; $i++) { 
             $entreprise = new Entreprise($this->slugger);
@@ -56,7 +55,7 @@ class AppFixtures extends Fixture
                     ->setSlug($name)
                     ->setEmail('test@mail.com');
 
-            $entrepriseDirectory = $this->fileService->getFacturesDirectory() . '/' . $entreprise->getSlug();
+            $entrepriseDirectory = $facturesDirectory . '/' . $entreprise->getSlug();
             if (!file_exists($entrepriseDirectory)) {
                 mkdir($entrepriseDirectory, 0777, true);
             }

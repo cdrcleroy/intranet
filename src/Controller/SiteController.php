@@ -3,13 +3,15 @@
 namespace App\Controller;
 
 use App\Form\SiteType;
+use App\Entity\Contact;
 use App\Repository\SiteRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class SiteController extends AbstractController
 {
@@ -22,9 +24,13 @@ class SiteController extends AbstractController
         ): Response
     {
         $site = $repository->find($id);
-        
+
         $role = $this->isGranted('ROLE_COMMERCIAL') ? 'commercial' : 'contact';
         $user = $this->getUser();
+        
+        if ($user instanceof Contact && $user->getSite() !== $site) {
+            throw new AccessDeniedException("Vous n'êtes pas autorisé à modifier cette entreprise.");
+        }
 
         $form = $this->createForm(SiteType::class, $site);
 

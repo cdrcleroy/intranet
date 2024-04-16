@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ContactController extends AbstractController
 {
@@ -147,6 +148,10 @@ class ContactController extends AbstractController
         $user = $this->getUser();
 
         $contact = $repository->findOneBy(['id' => $id]);
+
+        if ($user instanceof Contact && $contact->getEntreprise() !== $user->getEntreprise()) {
+            throw new AccessDeniedException("Vous n'êtes pas autorisé à modifier cette entreprise.");
+        }
 
         $form = $this->createForm(ContactType::class, $contact);
 

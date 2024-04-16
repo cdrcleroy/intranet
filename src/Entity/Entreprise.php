@@ -118,7 +118,6 @@ class Entreprise
     public function setName(string $name): static
     {
         $this->name = $name;
-        // $this->slug = $this->slugger->slug($name)->lower();
 
         return $this;
     }
@@ -255,19 +254,11 @@ class Entreprise
         return $this;
     }
 
-    /**
-     * Get the value of siren
-     */ 
     public function getSiren()
     {
         return $this->siren;
     }
 
-    /**
-     * Set the value of siren
-     *
-     * @return  self
-     */ 
     public function setSiren($siren)
     {
         $this->siren = $siren;

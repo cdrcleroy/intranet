@@ -54,7 +54,7 @@ class ScanFacturesCommand extends Command
     {
 
         $dotenv = new Dotenv();
-        $dotenv->loadEnv(__DIR__.'/../../.env');
+        $dotenv->loadEnv(__DIR__.'/../../.env.dev.local');
 
         $io = new SymfonyStyle($input, $output);
 
@@ -62,78 +62,83 @@ class ScanFacturesCommand extends Command
 
         $currentTimestamps = [];
 
-        // Chemin vers le fichier contenant les horodatages précédents
-        $timestampFile = $_ENV['TIMESTAMP_FILE'];
+        $timestampFile = 'C:\laragon\www\portail\factures\timestamps.json';
 
-        // Vérifier si le fichier des horodatages précédents existe
         if (file_exists($timestampFile)) {
             $previousTimestamps = json_decode(file_get_contents($timestampFile), true);
         }
 
-        // Chemin vers le dossier des factures
-        $facturesDirectory = 'C:\laragon\www\portail\factures';
+        $facturesDirectory = 'C:\laragon\www\intranet\factures';
 
-        // Scanner le dossier des factures
         $entreprises = scandir($facturesDirectory);
 
-        // Parcourir chaque fichier dans le dossier des factures
         foreach ($entreprises as $entreprise) {
-            // Ignorer les fichiers spéciaux "." et ".."
             if ($entreprise === '.' || $entreprise === '..') {
                 continue;
             }
 
-            // Chemin complet du fichier
             $entreprisePath = $facturesDirectory . '/' . $entreprise;
 
-            // Vérifier si le fichier est un répertoire (entreprise)
             if (is_dir($entreprisePath)) {
 
-                // Scanner le dossier de l'entreprise
                 $files = scandir($entreprisePath);
                 
-                // Parcourir chaque fichier de l'entreprise
                 foreach ($files as $file) {
-                    // Ignorer les fichiers spéciaux "." et ".."
                     if ($file === '.' || $file === '..') {
                         continue;
                     }
                     
-                    // Chemin complet du fichier de la facture
                     $filePath = $entreprisePath . '/' . $file;
                     
-                    // Récupérer l'horodatage du fichier
                     $currentTimestamp = filemtime($filePath);
 
-                    // Comparer l'horodatage actuel avec l'enregistrement précédent
                     if (!isset($previousTimestamps[$entreprise][$file]) || $currentTimestamp > $previousTimestamps[$entreprise][$file]) {
-                        // Nouveau fichier détecté ou fichier modifié
                         echo "Nouveau fichier détecté ou fichier modifié : $file dans le dossier de l'entreprise $entreprise\n";
+                        $io->success(sprintf("Nouveau fichier détecté ou fichier modifié : $file dans le dossier de l'entreprise $entreprise\n"));
 
                         $facture = new Facture();
                         $facture->setName($file);
-                        $facture->setCreatedAt(new \DateTimeImmutable(date('Y-m-d H:i:s', $currentTimestamp)));
+                        // $facture->setCreatedAt(new \DateTimeImmutable(date('Y-m-d H:i:s', $currentTimestamp)));
+
+                        $maxFilesPerEnterprise = 3;
 
                         $entrepriseObject = $this->repository->findOneBy(['slug' => $entreprise]);
 
+                        $factures = $this->manager->getRepository(Facture::class)->findBy(['entreprise' => $entrepriseObject]);
+
+                        $totalFiles = count($factures);
+
+                        if ($totalFiles > $maxFilesPerEnterprise) {
+                            usort($factures, function($a, $b) {
+                                return $a->getCreatedAt() <=> $b->getCreatedAt();
+                            });
+
+                            $filesToDelete = $totalFiles - $maxFilesPerEnterprise;
+
+                            for ($i = 0; $i < $filesToDelete; $i++) {
+                                $this->manager->remove($factures[$i]);
+                            }
+
+                            $this->manager->flush();
+                        }
+
+
+
                         if ($entrepriseObject) {
-                            // Récupérer l'e-mail de l'entreprise
                             $email = $entrepriseObject->getEmail();
                             $facture->setEntreprise($entrepriseObject);
 
-                            if($email) {
-                                // envoyer mail a l'entreprise
-                                $io->success(sprintf('E-mail envoyé à %s pour l\'entreprise %s.', $email, $entreprise));
-                                $message = (new Email())
-                                    ->from('expediteur@exemple.com')
-                                    ->to('test_email@localhost')
-                                    ->subject('Facture')
-                                    ->text('Votre facture est disponible.');
+                            $io->success(sprintf('E-mail envoyé à %s pour l\'entreprise %s.', $email, $entreprise));
+                            
+                            $message = (new Email())
+                                ->from('hello@example.com')
+                                ->to('you@example.com')
+                                ->subject('Time for Symfony Mailer!')
+                                ->text('Sending emails is fun again!')
+                                ->html('<p>See Twig integration for better HTML integration!</p>');
 
-                                $this->mailer->send($message);
-                            } else {
-                                $io->success(sprintf('Impossible de trouver l\'e-mail pour l\'entreprise %s.', $entreprise));
-                            }
+                            $this->mailer->send($message);
+
                         } else {
                             $io->error(sprintf('Impossible de trouver l\'entreprise correspondant au slug %s.', $entreprise));
                         }
@@ -143,14 +148,12 @@ class ScanFacturesCommand extends Command
 
                     }
 
-                    // Ajouter l'horodatage actuel au tableau
                     $currentTimestamps[$entreprise][$file] = $currentTimestamp;
                     
                 }
             }
         }
 
-        // Enregistrer les horodatages actuels dans le fichier
         file_put_contents($timestampFile, json_encode($currentTimestamps));
 
         $io->success('La tâche de scan des factures est terminée.');

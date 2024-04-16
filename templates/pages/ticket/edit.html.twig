@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Synaps System | Ticket n°{{ ticket.id }}{% endblock %}
+
+{% if profil == 'commercial' %}
+    {% set profilPath = path('commercial.profil', {id: user.id}) %}
+{% elseif profil == 'contact' %}
+    {% set profilPath = path('contact.profil', {id: user.id}) %}
+{% endif %}
+
+{% block sidebar %}
+    {% if profil == 'contact' %}
+        {% include "partials/_sidebar_contact.html.twig" %}
+    {% else %}
+        {% include "partials/_sidebar.html.twig" %}
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <div class="card mb-4" style="width: 800px;">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Mon site
+        </div>
+        <div class="card-body">
+            {# <div class ="d-flex justify-content-between align-items-center">
+                <div class="btn-group btn-group-sm" role="group" aria-label="Basic outlined example">
+                    <button type="button" class="btn btn-outline-secondary"><a href="{{ path('csv.site', {id: site.id}) }}">CSV</a></button>
+                    <button type="button" class="btn btn-outline-secondary"><a href="{{ path('pdf.site', {id: site.id}) }}">PDF</a></button>
+                </div>
+                <div class="btn-group btn-group-sm" role="group" aria-label="Basic outlined example">
+                    <button type="button" class="btn btn-outline-secondary"><a href="{{ path('entreprise.edit', {id: site.entreprise.id}) }}">Entreprise</a></button>
+                    <button type="button" class="btn btn-outline-secondary"><a href="{{ path('site.contacts', {id: site.id}) }}">Contacts</a></button>
+                </div>
+            </div> #}
+            {{ form_start(form) }}
+                <div class="row align-items-center">
+                    <div class="col-3 justify-content-end">
+                        {{ form_label(form.object) }}
+                    </div>
+                    <div class="col-9 align-items-center d-flex">
+                        {{ form_widget(form.object) }}
+                        {{ form_errors(form.object) }}
+                    </div>
+                    <div class="col-3 justify-content-end">
+                        {{ form_label(form.subject) }}
+                    </div>
+                    <div class="col-9 align-items-center d-flex">
+                        {{ form_widget(form.subject) }}
+                        {{ form_errors(form.subject) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        {{ form_label(form.createdAt) }}
+                    </div>
+                    <div class="col align-items-center d-flex">
+                        {{ form_widget(form.createdAt) }}
+                        {{ form_errors(form.createdAt) }}
+                    </div>
+                    <div class="col-2">
+                        {{ form_label(form.updatedAt) }}
+                    </div>
+                    <div class="col align-items-center d-flex">
+                        {{ form_widget(form.updatedAt) }}
+                        {{ form_errors(form.updatedAt) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        {{ form_label(form.description) }}
+                    </div>
+                    <div class="col-9 align-items-center d-flex">
+                        {{ form_widget(form.description) }}
+                        {{ form_errors(form.description) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        {{ form_label(form.site) }}
+                    </div>
+                    <div class="col align-items-center d-flex">
+                        {{ form_widget(form.site) }}
+                        {{ form_errors(form.site) }}
+                    </div>
+                    <div class="col-2">
+                        {{ form_label(form.entreprise) }}
+                    </div>
+                    <div class="col align-items-center d-flex">
+                        {{ form_widget(form.entreprise) }}
+                        {{ form_errors(form.entreprise) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        {{ form_label(form.contact) }}
+                    </div>
+                    <div class="col align-items-center d-flex">
+                        {{ form_widget(form.contact) }}
+                        {{ form_errors(form.contact) }}
+                    </div>
+                    <div class="col-2">
+                        {{ form_label(form.status) }}
+                    </div>
+                    <div class="col align-items-center d-flex">
+                        {{ form_widget(form.status) }}
+                        {{ form_errors(form.status) }}
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-3">
+                        {{ form_widget(form.submit) }}
+                    </div>
+                    <div class="col-3">
+                        {# <a href="{{ path('site.delete', { id: site.id}) }}"><button type="button" class="btn btn-secondary">Supprimer</button></a> #}
+                    </div>
+                </div>
+            {{ form_end(form)}}
+        </div>
+    </div>
+{% endblock %}

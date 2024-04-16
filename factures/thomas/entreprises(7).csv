@@ -1,0 +1,62 @@
+﻿Nom,Adresse,"Adresse 2","Code Postal",Ville,Pays,Email,Téléphone,"Téléphone 2",Fax,Entreprise
+Martineau,"5, place de Barbe",null,92485,Parent,France,test@mail.com,"+33 (0)2 23 94 63 91",null,null,"Riviere Schneider SARL"
+Mahe,"61, place Nathalie Schmitt",null,94952,Ruiz,France,test@mail.com,"+33 (0)1 53 21 02 04",null,null,"Martineau SARL"
+Picard,"impasse Pauline Leblanc","Étage 726",84908,LevequeBourg,France,test@mail.com,0619405278,null,null,"Martineau SARL"
+Marty,"860, place de Garcia","Apt. 350",93857,Leblanc,France,test@mail.com,"+33 (0)1 01 76 20 96",null,"+33 (0)8 12 29 31 63",Langlois
+"De Sousa Labbe SAS","2, avenue Maryse Le Roux","Bât. 960",51910,Morenodan,France,test@mail.com,0458418069,"+33 6 89 73 71 21",null,Langlois
+"Perrin Morvan et Fils","1, rue Traore","Étage 117",82377,Berthelot,France,test@mail.com,0417759054,"+33 (0)3 62 10 14 82","01 79 55 84 44",Thomas
+"Fournier Dupuy S.A.","45, rue Mathilde Philippe",null,82951,Hubert,France,test@mail.com,0350092460,null,null,Thomas
+"Bourdon Parent S.A.R.L.","38, rue de Texier","Chambre 083",09963,Raymond,France,test@mail.com,"+33 1 82 11 60 56","+33 9 74 24 81 96",null,Thomas
+"Sanchez Pons SAS","73, avenue de Duhamel","Étage 702",01335,Marchal,France,test@mail.com,"+33 (0)5 38 02 02 66","09 81 23 80 37",null,"Guillet S.A.R.L."
+Laroche,"49, rue Théodore Gomes",null,61673,Bouvet,France,test@mail.com,"04 07 22 74 34",null,null,Goncalves
+"Denis Lemonnier S.A.R.L.","252, chemin Michaud",null,97824,Martinez,France,test@mail.com,0346268814,null,0388569710,Goncalves
+"Ferreira Lucas et Fils","62, rue Leclerc",null,68344,Auger,France,test@mail.com,"05 17 32 72 39",null,null,Goncalves
+Moreno,"74, rue Arnaude Legros",null,32990,Legranddan,France,test@mail.com,"+33 1 77 91 21 68","+33 2 05 89 47 24",null,Collin
+"Merle SAS","134, chemin Humbert","Suite 503",91362,Robin,France,test@mail.com,"+33 2 36 25 15 43","+33 7 41 05 20 91","+33 (0)6 50 96 57 63",Fournier
+"Bouchet SA","51, boulevard Joubert","Chambre 654",56508,Devauxnec,France,test@mail.com,"+33 6 62 44 16 96","02 85 90 28 66",null,"Gomes et Fils"
+Rey,"87, impasse Claude Arnaud","Bât. 513",45217,Fernandezdan,France,test@mail.com,0452411864,null,null,"Gomes et Fils"
+Bouvier,"47, rue Gabrielle Louis",null,37960,"De Sousa",France,test@mail.com,"+33 7 68 26 64 24","+33 (0)2 69 10 49 86",0891252912,Toussaint
+Dumont,"653, avenue de Faure","Suite 882",02597,Mace,France,test@mail.com,"01 09 74 90 32","+33 (0)1 68 67 60 03",0783532421,Toussaint
+"Pineau Rodrigues S.A.R.L.","62, rue de Alves",null,33686,Joseph,France,test@mail.com,0773308330,"01 08 82 58 80",null,Toussaint
+Philippe,"rue Brun",null,11584,Masse,France,test@mail.com,"06 49 17 00 92","01 82 39 30 87",0923497201,Germain
+Bertrand,"9, boulevard Guibert",null,52924,Buisson,France,test@mail.com,"+33 5 64 46 71 60",null,null,Germain
+"Couturier SA","rue Marin","Apt. 352",77660,Perrot,France,test@mail.com,0782043098,"+33 1 95 24 32 27",null,"Pottier Bousquet S.A."
+"Denis Vincent SARL","55, avenue Gérard Raymond","Chambre 528",07276,Gay,France,test@mail.com,"+33 3 27 70 68 90","+33 9 91 12 53 97",0231508353,"Pottier Bousquet S.A."
+Mace,"78, place Jacquet","Apt. 654",86476,"De SousaBourg",France,test@mail.com,"+33 (0)2 10 43 57 82",null,null,"Paris Dos Santos et Fils"
+"Benard Benard et Fils","15, chemin Pierre","Étage 812",87049,Bourgeoisdan,France,test@mail.com,0676506323,null,null,"Paris Dos Santos et Fils"
+Grenier,"10, avenue Michelle Lelievre","Apt. 225",81050,Weiss,France,test@mail.com,"+33 9 86 40 91 23",null,"+33 9 29 30 68 00","Duhamel S.A.R.L."
+"Lambert SAS","chemin Julien Blin",null,17288,Langlois,France,test@mail.com,"+33 (0)9 42 06 27 40","+33 2 43 63 33 93",null,"Duhamel S.A.R.L."
+"Gimenez Weiss SA","946, avenue de Rocher","Chambre 221",81238,Bonneau-sur-Cordier,France,test@mail.com,0895519281,null,null,Laroche
+Marin,"74, rue Isabelle Potier","Étage 400",41051,Lemaitre-sur-Roche,France,test@mail.com,0998479364,"+33 4 76 61 83 26",null,Laroche
+"Sanchez SARL","90, rue Rossi","Chambre 732",75920,Riou,France,test@mail.com,"+33 4 99 20 62 31",null,null,Leclercq
+"Baron Texier et Fils","3, boulevard Margot Durand",null,32265,Joseph,France,test@mail.com,0351786243,null,0262696818,Leclercq
+"David SARL","9, avenue Masson","Chambre 953",70681,Rey,France,test@mail.com,"+33 1 98 64 47 66",null,"+33 8 27 61 95 05","Ribeiro Laporte SA"
+"Bonnet Delorme SAS","64, rue de Bouchet","Bât. 868",29739,Teixeira,France,test@mail.com,0799783449,0454907685,0178967911,"Ribeiro Laporte SA"
+Boulay,"70, rue Evrard",null,79583,Labbe,France,test@mail.com,"+33 (0)3 90 97 24 41","+33 (0)6 39 96 72 57",0615156538,"Ribeiro Laporte SA"
+"Remy S.A.","chemin Gilles Germain",null,52783,Marchalboeuf,France,test@mail.com,"02 09 66 37 38",null,null,Muller
+"Benoit Charles SA","8, place Lebon","Étage 936",22630,Garnier-sur-Mer,France,test@mail.com,"01 89 14 43 55","06 59 72 94 26",null,Muller
+Alexandre,"69, rue Brigitte Berthelot",null,24830,Girard,France,test@mail.com,0812335616,null,"+33 (0)4 70 13 49 77",Valette
+"Michaud Dijoux S.A.","582, avenue de Barthelemy","Apt. 337",53771,BenardBourg,France,test@mail.com,0134642355,0425446800,null,Valette
+"Francois Potier S.A.","169, rue Besson","Chambre 383",94138,Letellier-sur-Mer,France,test@mail.com,0639609124,null,null,Joseph
+"Humbert SAS","87, avenue Julie Schmitt",null,78555,Hernandez,France,test@mail.com,"+33 (0)7 32 86 53 13",null,null,Joseph
+Alexandre,"8, boulevard Juliette Allard","Étage 273",46690,Baudry-la-Forêt,France,test@mail.com,0133113992,null,null,"David Faivre S.A.R.L."
+Pineau,"99, impasse de Maillet","Étage 461",74847,Goncalves,France,test@mail.com,"08 06 87 60 71",null,null,"David Faivre S.A.R.L."
+Boutin,"429, avenue Aimé Besnard",null,07023,Robertboeuf,France,test@mail.com,"07 52 16 03 59","07 95 36 82 72",null,Bonneau
+Olivier,"boulevard de Joly","Suite 558",02277,Reynaud,France,test@mail.com,0343046338,null,"+33 4 05 14 03 07",Bonneau
+"Delorme Lacroix SA","29, boulevard de Courtois","Bât. 725",63533,Allain-sur-Hamel,France,test@mail.com,"04 40 24 03 97",null,null,Bonneau
+Schneider,"avenue Dominique Tessier","Suite 054",07338,"Deschamps-sur-Da Silva",France,test@mail.com,"05 77 45 78 79",null,0750275138,"Delorme Camus S.A."
+"Goncalves S.A.S.","68, impasse de Lacombe","Bât. 481",42952,Charles,France,test@mail.com,"+33 (0)3 88 74 41 04",null,null,"Delorme Camus S.A."
+"Gregoire S.A.","48, place Leveque","Étage 185",49564,LefebvreBourg,France,test@mail.com,"+33 (0)5 22 69 65 08",null,null,"Delorme Camus S.A."
+Roussel,"8, place Gilles Jean",null,59016,Marchaldan,France,test@mail.com,"01 43 88 91 85",null,null,"Garcia SA"
+Marchand,"15, rue Pinto",null,37301,AubertBourg,France,test@mail.com,"+33 6 91 69 19 39","+33 8 95 22 81 52",null,Dumas
+"Courtois SARL","260, place Charles Laporte","Bât. 458",97502,Mahe-la-Forêt,France,test@mail.com,0156581087,null,null,Dumas
+Carre,"802, boulevard Renée Bouchet","Suite 445",15844,LeclercqVille,France,test@mail.com,"+33 5 75 54 04 33",0510094979,0585597422,"Chevallier S.A.R.L."
+"Wagner Gaillard S.A.R.L.","5, avenue Aurélie Perrier","Bât. 937",80209,Hebertnec,France,test@mail.com,"04 16 79 87 67","+33 1 11 44 48 42","+33 (0)4 04 30 74 22","Chevallier S.A.R.L."
+"Vincent S.A.","rue de Durand",null,19234,Perret-sur-Daniel,France,test@mail.com,0977176426,0373498483,"+33 1 39 33 01 68",Lebrun
+"Jourdan SAS","32, place Letellier","Apt. 430",89873,Grenier-sur-Rey,France,test@mail.com,0766754475,"+33 (0)2 97 61 13 35",null,Lebrun
+Ramos,"rue Christophe Lebreton",null,55105,Francois,France,test@mail.com,"+33 (0)1 65 17 12 51",null,null,Laine
+Huet,"72, impasse Lucas Adam",null,23444,Olivier,France,test@mail.com,"+33 1 59 82 31 51","+33 5 99 88 15 28","+33 4 87 45 14 67","Leclerc et Fils"
+Fouquet,"88, boulevard Diane Colas",null,37847,MarechalVille,France,test@mail.com,"06 69 49 54 76",null,null,"Leclerc et Fils"
+"Perrier Bousquet SA","80, boulevard Becker",null,16067,Masson,France,test@mail.com,"+33 7 96 62 17 62",0566307427,"+33 5 90 10 55 24",Lambert
+Fouquet,"rue Astrid Bodin",null,66231,Fontaine,France,test@mail.com,"+33 2 63 79 27 24",null,null,Lambert
+"Pelletier S.A.R.L.","88, boulevard de Jacquet","Apt. 104",69803,LarocheBourg,France,test@mail.com,"+33 (0)5 14 65 45 23",0181102926,null,Lambert

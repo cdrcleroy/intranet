@@ -180,4 +180,24 @@ class PdfController extends AbstractController
 
         return $response;
     }
+
+    #[Route('/entreprise/{id}/factures/pdf', 'pdf.factures', methods: ['GET'])]
+    public function factures(
+        EntrepriseRepository $repository,
+        int $id,
+        PdfExporter $pdfExporter,
+        ): Response
+    {
+        $entreprise = $repository->findOneBy(['id' => $id]);
+
+        $files = $entreprise->getFactures();
+
+        $html = $this->renderView('pages/pdf/pdf_factures.html.twig', [
+            'files' => $files,
+        ]);
+
+        $response = $pdfExporter->export('files.pdf', $html);
+
+        return $response;
+    }
 }

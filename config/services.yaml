@@ -24,10 +24,6 @@ services:
     resource: "../src/EntityListener/"
     tags: ["doctrine.orm.entity_listener"]
 
-  App\Service\FileService:
-    arguments:
-      $fileDirectory: "%kernel.project_dir%/factures"
-
   App\Entity\Contact:
     autowire: true
 

@@ -6,7 +6,6 @@ use App\Service\CsvExporter;
 use App\Repository\SiteRepository;
 use App\Repository\ContactRepository;
 use App\Repository\EntrepriseRepository;
-use App\Service\FileService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -293,22 +292,22 @@ class CsvController extends AbstractController
         EntrepriseRepository $repository,
         int $id,
         CsvExporter $csvExporter,
-        FileService $fileService,
         ): Response
     {
         $entreprise = $repository->findOneBy(['id' => $id]);
 
-        $files = $fileService->getFilesByCompany($entreprise->getSlug());
+        $files = $entreprise->getFactures();
 
         $data = [];
-
         foreach ($files as $file) {
-            $fileName = $file['name'];
-            $data[] = $fileName;
-        };
+            $data[] = [
+                'Date' => $file->getCreatedAt()->format('Y-m-d H:i:s'), 
+                'Nom' => $file->getName(),
+            ];
+        }
 
-        $response = $csvExporter->export($data, $entreprise->getSlug() . '.csv');
-        $response->headers->set('Content-Disposition', 'attachment; filename="' . $entreprise->getSlug() . '.csv');
+        $response = $csvExporter->export($data, $entreprise->getSlug() . '_factures.csv');
+        $response->headers->set('Content-Disposition', 'attachment; filename="' . $entreprise->getSlug() . '_factures.csv');
 
         return $response;
     }
