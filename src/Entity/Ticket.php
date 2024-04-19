@@ -55,6 +55,9 @@ class Ticket
     #[ORM\JoinColumn(nullable: false)]
     private ?TicketObjet $object = null;
 
+    #[ORM\ManyToOne(inversedBy: 'ticket')]
+    private ?Prestation $prestation = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
@@ -181,6 +184,18 @@ class Ticket
     public function setObject(?TicketObjet $object): static
     {
         $this->object = $object;
+
+        return $this;
+    }
+
+    public function getPrestation(): ?Prestation
+    {
+        return $this->prestation;
+    }
+
+    public function setPrestation(?Prestation $prestation): static
+    {
+        $this->prestation = $prestation;
 
         return $this;
     }

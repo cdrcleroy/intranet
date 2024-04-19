@@ -31,10 +31,14 @@ body {
   background: linear-gradient(rgba(39, 39, 39, 0.6), transparent);
   z-index: 100;
 }
-.nav-logo p {
-  color: white;
-  font-size: 25px;
-  font-weight: 600;
+.nav-logo {
+  width: 30%; /* Définit la largeur du conteneur parent à 50% */
+  margin: 0 auto; /* Centre l'élément horizontalement */
+}
+
+.nav-logo img {
+  width: 100%; /* Définit la largeur de l'image à 100% de la largeur du conteneur parent */
+  height: auto; /* Permet à la hauteur de l'image de s'ajuster automatiquement pour conserver les proportions */
 }
 .nav-menu ul {
   display: flex;

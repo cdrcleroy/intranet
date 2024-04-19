@@ -197,7 +197,7 @@ class EntrepriseType extends AbstractType
                     'minlength' => '2',
                     'maxlength' => '50',
                     'placeholder' => 'SIREN',
-                    'disabled' => 'disabled'
+                    'readonly' => true,
                 ],
                 'label' => 'SIREN',
                 'label_attr' => [

@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Synaps System | Informations contact{% endblock %}
+{% block title %}Synaps System | Informations {{ site.name }}{% endblock %}
 
 {% if profil == 'commercial' %}
-    {% set profilPath = path('commercial.profil', {id: user.id}) %}
+    {% set profilPath = path('commercial.edit', {id: user.id}) %}
 {% elseif profil == 'contact' %}
     {% set profilPath = path('contact.profil', {id: user.id}) %}
 {% endif %}
@@ -19,8 +19,8 @@
 {% block body %}
     <div class="card mb-4" style="width: 800px;">
         <div class="card-header">
-            <i class="fas fa-table me-1"></i>
-            Mon site
+            <i class="fas fa-store me-1"></i>
+            {{ site.name }}
         </div>
         <div class="card-body">
             <div class ="d-flex justify-content-between align-items-center">

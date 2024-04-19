@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Contact;
+use App\Entity\Commercial;
 use App\Service\CsvExporter;
 use App\Repository\SiteRepository;
+use App\Repository\TicketRepository;
 use App\Repository\ContactRepository;
 use App\Repository\EntrepriseRepository;
 use Symfony\Component\HttpFoundation\Response;
@@ -282,7 +285,7 @@ class CsvController extends AbstractController
         ];
 
         $response = $csvExporter->export($data, $contact->getLastName() . '_' . $contact->getFirstName() . '.csv');
-        $response->headers->set('Content-Disposition', 'attachment; filename="' . $contact->getLastName() . '_' . $contact->getFirstName() . '.csv');
+        $response->headers->set('Content-Disposition', 'attachment; filename="' . $contact->getLastName() . '_' . $contact->getFirstName() . '.csv"');
 
         return $response;
     }
@@ -307,7 +310,66 @@ class CsvController extends AbstractController
         }
 
         $response = $csvExporter->export($data, $entreprise->getSlug() . '_factures.csv');
-        $response->headers->set('Content-Disposition', 'attachment; filename="' . $entreprise->getSlug() . '_factures.csv');
+        $response->headers->set('Content-Disposition', 'attachment; filename="' . $entreprise->getSlug() . '_factures.csv"');
+
+        return $response;
+    }
+
+    #[Route('/ticket/{id}/csv', 'csv.ticket', methods: ['GET'])]
+    public function ticket(
+        TicketRepository $repository,
+        int $id,
+        CsvExporter $csvExporter,
+    ): Response
+    {
+        $ticket = $repository->findOneBy(['id' => $id]);
+
+        $data[] = [
+            'Numéro' => $ticket->getId(), 
+            'Date d\'ouverture' => $ticket->getCreatedAt()->format('Y-m-d H:i:s'),
+            'Objet' => $ticket->getobject() ?? 'null', 
+            'Sujet' => $ticket->getSubject() ?? 'null', 
+            'Entreprise' => $ticket->getEntreprise() ?? 'null', 
+            'Site' => $ticket->getSite() ?? 'null', 
+            'Emetteur' => $ticket->getContact() ?? 'null',
+        ];
+
+        $response = $csvExporter->export($data, $ticket->getId() . '.csv');
+        $response->headers->set('Content-Disposition', 'attachment; filename="' . $ticket->getId() . '.csv"');
+
+        return $response;
+    }
+
+    #[Route('/tickets/csv', 'csv.tickets', methods: ['GET'])]
+    public function tickets(
+        CsvExporter $csvExporter,
+    ): Response
+    {
+        $user = $this->getUser();
+
+        if ($user instanceof Contact) {
+            $entreprise = $user->getEntreprise();
+            $tickets = $entreprise->getTickets();
+        } elseif ($user instanceof Commercial) {
+            $tickets = $user->getTickets();
+        }
+
+        $data = [];
+
+        foreach ($tickets as $ticket) {
+            $data[] = [
+                'Numéro' => $ticket->getId(), 
+                'Date d\'ouverture' => $ticket->getCreatedAt()->format('Y-m-d H:i:s'),
+                'Objet' => $ticket->getobject() ?? 'null', 
+                'Sujet' => $ticket->getSubject() ?? 'null', 
+                'Entreprise' => $ticket->getEntreprise() ?? 'null', 
+                'Site' => $ticket->getSite() ?? 'null', 
+                'Emetteur' => $ticket->getContact() ?? 'null',
+            ];
+        }
+
+        $response = $csvExporter->export($data, 'tickets.csv');
+        $response->headers->set('Content-Disposition', 'attachment; filename="tickets.csv');
 
         return $response;
     }

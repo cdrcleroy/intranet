@@ -49,7 +49,7 @@
                     right: 1.5rem;"></i>
                 </a>
                 <div class="sub-menu" style="display: none;">
-                    <a href="" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Eligibilité</a>
+                    <a href="{{ path('eligibilite.index') }}" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Eligibilité</a>
                     <a href="" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Suivi des commandes</a>
                 </div>
             </li>
@@ -92,8 +92,8 @@
                     right: 1.5rem;"></i>
                 </a>
                 <div class="sub-menu" style="display: none;">
-                    <a href="" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Suivi des tickets</a>
-                    <a href="" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Tickets en attente</a>
+                    <a href="{{ path('ticket.tickets') }}" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Suivi des tickets</a>
+                    <a href="{{ path('ticket.pendingTickets') }}" class="sub-item"><i class="fa-solid fa-arrow-right dropdown" style="font-size: 60%;"></i>Tickets en attente</a>
                 </div>
             </li>
             <li>

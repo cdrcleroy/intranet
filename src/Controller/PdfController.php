@@ -2,14 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Contact;
+use App\Entity\Commercial;
 use App\Service\PdfExporter;
 use App\Repository\SiteRepository;
+use App\Repository\TicketRepository;
 use App\Repository\ContactRepository;
 use App\Repository\EntrepriseRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PdfController extends AbstractController
 {
@@ -136,7 +139,7 @@ class PdfController extends AbstractController
             'contact' => $contact,
         ]);
 
-        $response = $pdfExporter->export( $contact->getLastName() . '_' . $contact->getFirstName() . '.csv', $html);
+        $response = $pdfExporter->export( $contact->getLastName() . '_' . $contact->getFirstName() . '.pdf', $html);
 
         return $response;
     }
@@ -197,6 +200,47 @@ class PdfController extends AbstractController
         ]);
 
         $response = $pdfExporter->export('files.pdf', $html);
+
+        return $response;
+    }
+
+    #[Route('/ticket/{id}/pdf', 'pdf.ticket', methods: ['GET'])]
+    public function ticket(
+        TicketRepository $repository,
+        int $id,
+        PdfExporter $pdfExporter,
+    ): Response
+    {
+        $ticket = $repository->findOneBy(['id' => $id]);
+
+        $html = $this->renderView('pages/pdf/pdf_ticket.html.twig', [
+            'ticket' => $ticket,
+        ]);
+
+        $response = $pdfExporter->export( $ticket->getId() . '.pdf', $html);
+
+        return $response;
+    }
+
+    #[Route('/tickets/pdf', 'pdf.tickets', methods: ['GET'])]
+    public function tickets(
+        PdfExporter $pdfExporter,
+    ): Response
+    {
+        $user = $this->getUser();
+
+        if ($user instanceof Contact) {
+            $entreprise = $user->getEntreprise();
+            $tickets = $entreprise->getTickets();
+        } elseif ($user instanceof Commercial) {
+            $tickets = $user->getTickets();
+        }
+
+        $html = $this->renderView('pages/pdf/pdf_tickets.html.twig', [
+            'tickets' => $tickets,
+        ]);
+
+        $response = $pdfExporter->export('tickets.pdf', $html);
 
         return $response;
     }

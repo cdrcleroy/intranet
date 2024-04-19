@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EligibiliteController!{% endblock %}
+
+{% if profil == 'commercial' %}
+    {% set profilPath = path('', {id: user.id}) %}
+{% elseif profil == 'contact' %}
+    {% set profilPath = path('contact.profil', {id: user.id}) %}
+{% endif %}
+
+{% block sidebar %}
+    {% if profil == 'contact' %}
+        {% include "partials/_sidebar_contact.html.twig" %}
+    {% else %}
+        {% include "partials/_sidebar.html.twig" %}
+    {% endif %}
+{% endblock %}
+
+
+{% block body %}
+    <div class="card mb-4" style="width: 1000px;">
+        <div class="card-header">
+            <i class="fa-solid fa-map-location-dot"></i>
+            Tester l'éligibilité par adresse
+        </div>
+        <div class="card-body">
+            <form method="post" action="{{ path('eligibilite.test') }}" class="signin-form" id="adressForm">
+                <div class="row g-3 align-items-center">
+                    <div class="col">
+                        <div class="input-group">
+                            <input type="text" id="adresse" class="form-control adresse-input" placeholder="Entrez votre adresse" name="adresse" list="address-suggestions" autocomplete="off" required>
+                            <span class="input-group-text clear-icon" onclick="clearInput()" style="cursor: pointer;">&#10006;</span>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-danger" type="submit">Tester</button>
+                    </div>
+                </div>
+                <select name="address-suggestions" id="address-suggestions" class="form-select" size="5" multiple style="display: none; position: absolute; overflow: hidden;"></select>
+            </form>
+        </div>
+    </div>
+{% endblock %}

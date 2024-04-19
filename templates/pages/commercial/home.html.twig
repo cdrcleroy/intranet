@@ -2,7 +2,7 @@
 
 {% block title %}Synaps System | Accueil{% endblock %}
 
-{% set profilPath = path('commercial.profil', {id: user.id}) %}
+{% set profilPath = path('commercial.edit', {id: user.id}) %}
 
 {% block sidebar %}
     {% include "partials/_sidebar.html.twig" %}

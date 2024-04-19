@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% if profil == 'commercial' %}
-    {% set profilPath = path('commercial.profil', {id: user.id}) %}
+    {% set profilPath = path('commercial.edit', {id: user.id}) %}
 {% elseif profil == 'contact' %}
     {% set profilPath = path('contact.profil', {id: user.id}) %}
 {% endif %}
@@ -21,7 +21,7 @@
 {% block body %}
             <div class="card mb-4" style="width: 1000px;">
                 <div class="card-header">
-                    <i class="fa-solid fa-users me-1"></i>
+                    <i class="fa-solid fa-building me-1"></i>
                     Liste des entreprises 
                 </div>
 

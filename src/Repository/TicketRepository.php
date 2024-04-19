@@ -21,7 +21,7 @@ class TicketRepository extends ServiceEntityRepository
         parent::__construct($registry, Ticket::class);
     }
 
-    public function findOpenTicketsWithoutCommercial()
+    public function findOpenTickets()
     {
         return $this->createQueryBuilder('t')
             ->join('t.status', 's') // Jointure avec l'entité TicketStatus
@@ -32,18 +32,6 @@ class TicketRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findOpenedTicketsByCommercial($commercial)
-{
-    return $this->createQueryBuilder('t')
-        ->join('t.commercial', 'c')
-        ->join('t.status', 's')
-        ->andWhere('s.name != :status')
-        ->andWhere('c.id = :commercialId')
-        ->setParameter('status', 'Fermé')
-        ->setParameter('commercialId', $commercial->getId())
-        ->getQuery()
-        ->getResult();
-}
 
     //    /**
     //     * @return Ticket[] Returns an array of Ticket objects

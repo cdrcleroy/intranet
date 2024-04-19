@@ -9,8 +9,11 @@ use App\Entity\Ticket;
 use App\Entity\Contact;
 use App\Entity\Commercial;
 use App\Entity\Entreprise;
+use App\Entity\Prestation;
 use App\Entity\TicketObjet;
 use App\Entity\TicketStatus;
+use App\Entity\PrestationType;
+use App\Entity\PrestationStatus;
 use Symfony\Component\Dotenv\Dotenv;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -128,8 +131,6 @@ class AppFixtures extends Fixture
 
         $commerciaux = $manager->getRepository(Commercial::class)->findAll();
 
-        $contacts = $manager->getRepository(Contact::class)->findAll();
-
         // TicketStatus
         $status1 = new TicketStatus();
         $status1->setName('Ouvert');
@@ -198,32 +199,130 @@ class AppFixtures extends Fixture
         $manager->flush();
 
         $allStatus = $manager->getRepository(TicketStatus::class)->findAll();
-        $sites = $manager->getRepository(Site::class)->findAll();
         $objects = $manager->getRepository(TicketObjet::class)->findAll();
         
-        // Tickets        
-        foreach ($entreprises as $entreprise) {
-            foreach ($contacts as $contact) {
-                // Créer un ticket avec des données aléatoires
-                $status = $this->faker->randomElement($allStatus);
-                $site = $this->faker->randomElement($sites);
-                $object = $this->faker->randomElement($objects);
-                $commercial = ($status->getName() === 'Ouvert') ? null : $this->faker->randomElement($commerciaux);
-    
-                $ticket = new Ticket();
-                $ticket->setStatus($status)
-                    ->setObject($object)
-                    ->setContact(mt_rand(0, 1) == 1 ? $contact : null)
-                    ->setEntreprise($entreprise)
-                    ->setCommercial($commercial)
-                    ->setSubject($this->faker->catchPhrase())
-                    ->setDescription($this->faker->realText())
-                    ->setSite($site);
-    
-                $manager->persist($ticket);
+        // Nombre maximal de tickets à créer
+        $totalTickets = 100;
+
+        // Nombre maximal de tickets par entreprise
+        $maxTicketsPerEntreprise = 10;
+
+        // Tickets
+        for ($i = 0; $i < $totalTickets; $i++) {
+            // Sélectionnez aléatoirement une entreprise
+            $entreprise = $this->faker->randomElement($entreprises);
+            
+            // Sélectionnez aléatoirement un site de cette entreprise
+            $site = $this->faker->randomElement($entreprise->getSites()->toArray());
+            
+            // Sélectionnez aléatoirement un contact du site
+            $contact = $this->faker->randomElement($site->getContact()->toArray());
+            
+            // Créer un ticket avec des données aléatoires
+            $status = $this->faker->randomElement($allStatus);
+            $object = $this->faker->randomElement($objects);
+            $commercial = ($status->getName() === 'Ouvert') ? null : $this->faker->randomElement($commerciaux);
+
+            $ticket = new Ticket();
+            $ticket->setStatus($status)
+                ->setObject($object)
+                ->setContact($contact)
+                ->setEntreprise($entreprise)
+                ->setCommercial($commercial)
+                ->setSubject($this->faker->catchPhrase())
+                ->setDescription($this->faker->realText())
+                ->setSite($site);
+
+            $manager->persist($ticket);
+
+            // Limiter le nombre de tickets par entreprise
+            $tickets = $entreprise->getTickets();
+            if (count($tickets) >= $maxTicketsPerEntreprise) {
+                break;
             }
         }
+
+        // Type de prestation
+
+        $type1 = new PrestationType();
+        $type1->setName('Connexions');
+
+        $manager->persist($type1);
+
+        $type2 = new PrestationType();
+        $type2->setName('Datacenter');
+
+        $manager->persist($type2);
+
+        $type3 = new PrestationType();
+        $type3->setName('Internet');
+
+        $manager->persist($type3);
+
+        $type4 = new PrestationType();
+        $type4->setName('Matériel');
+
+        $manager->persist($type4);
+
+        $type5 = new PrestationType();
+        $type5->setName('Prestation de services');
+
+        $manager->persist($type5);
+
+        $manager->flush();
+
+        // PrestationStatus
+        $statusP1 = new PrestationStatus();
+        $statusP1->setName('Production lancée');
+        $statusP1->setDescription('La mise en production est lancée');
+        $statusP1->setColor('#FFC107');
         
+        $manager->persist($statusP1);
+        
+        $statusP2 = new PrestationStatus();
+        $statusP2->setName('En attente de livraison');
+        $statusP2->setDescription('La prestation est en attente de livraison');
+        $statusP2->setColor('#007BFF');
+        
+        $manager->persist($statusP2);
+        
+        $statusP3 = new PrestationStatus();
+        $statusP3->setName('En production');
+        $statusP3->setDescription('La prestation est en production.');
+        $statusP3->setColor('#17A2B8');
+        
+        $manager->persist($statusP3);
+        
+        $statusP4 = new PrestationStatus();
+        $statusP4->setName('Résiliée');
+        $statusP4->setDescription('La prestation est résiliée.');
+        $statusP4->setColor('#28A745');
+        
+        $manager->persist($statusP4);
+                
+        $manager->flush();
+
+        $types = $manager->getRepository(PrestationType::class)->findAll();
+        $statusesP = $manager->getRepository(PrestationStatus::class)->findAll();
+
+        // Prestations
+        for ($n=0; $n < 50; $n++) { 
+            $prestation = new Prestation();
+
+            $statusP = $this->faker->randomElement($statusesP);
+            $type = $this->faker->randomElement($types);
+
+            $prestation->setName($this->faker->catchPhrase())
+                ->setDescription($this->faker->realText())
+                ->setPrice($this->faker->randomFloat(1))
+                ->setStatus($statusP)
+                ->setType($type);
+
+            $manager->persist($prestation);
+
+            $manager->flush();
+        }
+
         $manager->flush();
     }
 }

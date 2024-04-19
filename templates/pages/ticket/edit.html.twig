@@ -1,9 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Synaps System | Ticket n°{{ ticket.id }}{% endblock %}
+{% block title %}
+    {% if ticket is defined and ticket is not null %}
+        Synaps System | Ticket n°{{ ticket.id }}
+    {% else %}
+        Synaps System | Nouveau ticket
+    {% endif %}
+{% endblock %}
 
 {% if profil == 'commercial' %}
-    {% set profilPath = path('commercial.profil', {id: user.id}) %}
+    {% set profilPath = path('commercial.edit', {id: user.id}) %}
 {% elseif profil == 'contact' %}
     {% set profilPath = path('contact.profil', {id: user.id}) %}
 {% endif %}
@@ -19,20 +25,24 @@
 {% block body %}
     <div class="card mb-4" style="width: 800px;">
         <div class="card-header">
-            <i class="fas fa-table me-1"></i>
-            Mon site
+            <i class="fas fa-ticket me-1"></i>
+            {% if ticket is defined and ticket is not null %}
+                Ticket n°{{ ticket.id }}
+            {% endif %}
+            
         </div>
         <div class="card-body">
-            {# <div class ="d-flex justify-content-between align-items-center">
+            <div class ="d-flex justify-content-between align-items-center">
                 <div class="btn-group btn-group-sm" role="group" aria-label="Basic outlined example">
-                    <button type="button" class="btn btn-outline-secondary"><a href="{{ path('csv.site', {id: site.id}) }}">CSV</a></button>
-                    <button type="button" class="btn btn-outline-secondary"><a href="{{ path('pdf.site', {id: site.id}) }}">PDF</a></button>
-                </div>
+                    <button type="button" class="btn btn-outline-secondary"><a href="{{ path('csv.ticket', {id: ticket.id}) }}">CSV</a></button>
+                    <button type="button" class="btn btn-outline-secondary"><a href="{{ path('pdf.ticket', {id: ticket.id}) }}">PDF</a></button>
+                </div>                
                 <div class="btn-group btn-group-sm" role="group" aria-label="Basic outlined example">
-                    <button type="button" class="btn btn-outline-secondary"><a href="{{ path('entreprise.edit', {id: site.entreprise.id}) }}">Entreprise</a></button>
-                    <button type="button" class="btn btn-outline-secondary"><a href="{{ path('site.contacts', {id: site.id}) }}">Contacts</a></button>
+                    <button type="button" class="btn btn-outline-secondary"><a href="{{ path('entreprise.edit', {id: ticket.entreprise.id}) }}">Entreprise</a></button>
+                    <button type="button" class="btn btn-outline-secondary"><a href="{{ path('site.edit', {id: ticket.site.id}) }}">Site</a></button>
+                    <button type="button" class="btn btn-outline-secondary"><a href="{{ path('contact.edit', {id: ticket.contact.id}) }}">Emetteur</a></button>
                 </div>
-            </div> #}
+            </div>
             {{ form_start(form) }}
                 <div class="row align-items-center">
                     <div class="col-3 justify-content-end">
@@ -62,7 +72,7 @@
                         {{ form_label(form.updatedAt) }}
                     </div>
                     <div class="col align-items-center d-flex">
-                        {{ form_widget(form.updatedAt) }}
+                        {{ form_widget(form.updatedAt, {'attr': {'disabled': 'disabled'}}) }}
                         {{ form_errors(form.updatedAt) }}
                     </div>
                 </div>
@@ -71,7 +81,7 @@
                         {{ form_label(form.description) }}
                     </div>
                     <div class="col-9 align-items-center d-flex">
-                        {{ form_widget(form.description) }}
+                        {{ form_widget(form.description, {'attr':{'rows':'4'}}) }}
                         {{ form_errors(form.description) }}
                     </div>
                 </div>
@@ -112,7 +122,9 @@
                         {{ form_widget(form.submit) }}
                     </div>
                     <div class="col-3">
-                        {# <a href="{{ path('site.delete', { id: site.id}) }}"><button type="button" class="btn btn-secondary">Supprimer</button></a> #}
+                    {% if ticket is defined and ticket is not null %}
+                        <a href="{{ path('ticket.delete', { id: ticket.id}) }}"><button type="button" class="btn btn-secondary">Supprimer</button></a>
+                    {% endif %}                        
                     </div>
                 </div>
             {{ form_end(form)}}

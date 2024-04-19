@@ -3,7 +3,7 @@
 {% block title %}Synaps System | Modifier le profil{% endblock %}
 
 {% if profil == 'commercial' %}
-    {% set profilPath = path('commercial.profil', {id: user.id}) %}
+    {% set profilPath = path('commercial.edit', {id: user.id}) %}
 {% elseif profil == 'contact' %}
     {% set profilPath = path('contact.profil', {id: user.id}) %}
 {% endif %}
@@ -34,7 +34,7 @@
                 </div>
             </div>
             {{ form_start(form) }}
-                {% if user.id == contact.id %}
+                {% if user.id == contact.id or profil == 'commercial' %}
                     <div class="row">
                         <div class="col-2">
                             {{ form_label(form.firstName) }}

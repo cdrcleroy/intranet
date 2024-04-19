@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CommercialController extends AbstractController
 {
 
-    #[Route('/edition/{id}', 'commercial.profil', methods: ['GET', 'POST'])]
+    #[Route('/edition/{id}', 'commercial.edit', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_USER')]
     public function edit(
         Commercial $commercial, 
