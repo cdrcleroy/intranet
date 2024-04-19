@@ -96,22 +96,29 @@ white .link:hover,
   height: 420px;
   overflow: hidden;
   z-index: 2;
+  top: 85%;
 }
 .login-container {
   position: absolute;
-  left: 4px;
+  left: 50%;
+  transform: translateX(-50%); /* Centrer horizontalement */
   width: 500px;
   display: flex;
   flex-direction: column;
   transition: 0.5s ease-in-out;
+  top: 65%; /* Déplacer vers le bas à 50% de la hauteur */
+  margin-top: -210px; /* Ajuster la marge pour le recentrer verticalement */
 }
 .register-container {
   position: absolute;
-  left: 4px;
+  left: 50%;
+  transform: translateX(-50%); /* Centrer horizontalement */
   width: 500px;
   display: flex;
   flex-direction: column;
   transition: 0.5s ease-in-out;
+  top: 65%; /* Déplacer vers le bas à 50% de la hauteur */
+  margin-top: -210px;
 }
 
 .top span {
